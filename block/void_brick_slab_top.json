@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "eclipseofthevoid:block/void_bricks",
-    "side": "eclipseofthevoid:block/void_bricks",
-    "top": "eclipseofthevoid:block/void_bricks"
-  }
-}

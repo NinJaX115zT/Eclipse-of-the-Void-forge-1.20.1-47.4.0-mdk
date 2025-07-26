@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/template_cauldron_full",
-  "textures": {
-    "content": "eclipseofthevoid:block/ethereal_honey_fill",
-    "liquid": "eclipseofthevoid:block/ethereal_honey_fill",
-    "particle": "eclipseofthevoid:block/ethereal_honey_fill"
-  }
-}
