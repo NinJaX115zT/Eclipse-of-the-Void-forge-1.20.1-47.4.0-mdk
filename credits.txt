@@ -1,0 +1,27 @@
+=======================================
+         Eclipse of the Void
+=======================================
+
+Created by:
+  LucarioNinja
+  - A mod made for fun, built from passion and curiosity.
+  - I’m not a professional programmer or modder, I'm just someone who loves Minecraft and wanted to experiment.
+
+Special Thanks:
+  Kaupenjoe
+  - For the fantastic Forge modding tutorials that guided my journey.
+  ChatGPT
+  - For the helpful code support and creative inspiration along the way.
+
+Message:
+  This mod is a labor of love and a playful experiment in dark and semi-immersive gameplay.
+  I made it for fun, without any malice, and I hope you enjoy exploring its chaos.
+  Please don’t hate that I used AI to help me code, everyone does it nowadays. 
+  And it's really helpful for people like me who don't really know how to code.
+  Just please enjoy it! Maybe suggest ideas to me, and if any devs or artists want to make things better, I could use that help!
+  Finally, I just wanted to say thanks for downloading/even giving this mod a go. Hope you enjoy! 
+
+Version:
+  0.7.4-1.20.1
+
+=======================================
