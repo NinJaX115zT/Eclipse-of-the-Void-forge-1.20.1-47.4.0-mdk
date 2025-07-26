@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "group": "infernal",
+  "ingredient": {
+    "item": "eclipseofthevoid:infernal_ore"
+  },
+  "result": "eclipseofthevoid:infernal_shard"
+}

@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="eclipseofthevoid"
+version="0.7.4"
+displayName="Eclipse of the Void"
+logoFile="logo.png"
+authors="LucarioNinja"
+
+description='''A cursed expansion of darkness, corruption, and powerful crafting.'''
+
+credits="Thanks to Kaupenjoe for the tutorials, and ChatGPT for helping bring the Void to life."
+
+[[dependencies.eclipseofthevoid]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.eclipseofthevoid]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dataPack]]
+modid="eclipseofthevoid"
+mandatory=true
+version=1
+displayName="Eclipse of the Void Built-in Datapack"
+description='Internal Datapack for Eclipse of the Void'

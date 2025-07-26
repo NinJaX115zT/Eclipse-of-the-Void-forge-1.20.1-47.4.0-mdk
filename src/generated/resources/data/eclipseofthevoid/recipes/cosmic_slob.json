@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "eclipseofthevoid:cosmic_essence"
+    },
+    "S": {
+      "item": "eclipseofthevoid:cosmic_shard"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SES",
+    " S "
+  ],
+  "result": {
+    "item": "eclipseofthevoid:cosmic_slob"
+  },
+  "show_notification": true
+}

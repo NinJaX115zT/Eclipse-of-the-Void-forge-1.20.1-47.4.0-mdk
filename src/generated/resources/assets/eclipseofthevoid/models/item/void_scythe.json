@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "eclipseofthevoid:item/void_scythe"
+  }
+}

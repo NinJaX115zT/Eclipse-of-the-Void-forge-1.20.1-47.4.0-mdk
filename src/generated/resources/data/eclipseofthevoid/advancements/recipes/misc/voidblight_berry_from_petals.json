@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:voidblight_berry_from_petals"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_voidblossom_petal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:voidblossom_petal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_voidblossom_petal",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:voidblight_berry_from_petals"
+    ]
+  },
+  "sends_telemetry_event": false
+}

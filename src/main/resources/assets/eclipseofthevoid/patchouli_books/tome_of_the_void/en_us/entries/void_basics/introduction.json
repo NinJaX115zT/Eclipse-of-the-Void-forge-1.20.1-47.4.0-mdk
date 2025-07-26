@@ -1,0 +1,22 @@
+{
+  "name": "Introduction",
+  "category": "eclipseofthevoid:void_basics",
+  "icon": "minecraft:book",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Welcome",
+      "text": "Welcome to the Void. With this Tome, you will be guided on what to do and how to survive. If you ever feel lost or unsure what to do next, this Tome will help you understand things better. Please enjoy this mod! I worked really hard on it. If you encounter any issues, feel free to report them on my GitHub page."
+    },
+    {
+      "type": "text",
+      "title": "Credits",
+      "text": "- Created by: LucarioNinja     - Special thanks to: Kaupenjoe for the amazing tutorials, also ChatGPT for assistance and idea generation, this wouldn't have been at all possible without them."
+    },
+    {
+      "type": "text",
+      "title": "What to Expect",
+      "text": "- Learn how to enter the Void. - Survive its harsh environment.                  - Discover and craft powerful Void tools and armor.          - Face terrifying bosses and uncover hidden secrets."
+    }
+  ]
+}

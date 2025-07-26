@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "eclipseofthevoid:void_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "eclipseofthevoid:void_ingot"
+  }
+}

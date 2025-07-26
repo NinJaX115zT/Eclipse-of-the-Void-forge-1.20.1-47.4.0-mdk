@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_infernal_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:infernal_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:infernal_shard_from_smelting_infernal_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_infernal_ore",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:infernal_shard_from_smelting_infernal_ore"
+    ]
+  },
+  "sends_telemetry_event": false
+}

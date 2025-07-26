@@ -1,0 +1,14 @@
+{
+  "type": "eclipseofthevoid:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/enderman"
+    },
+    {
+      "chance": 0.18,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "eclipseofthevoid:cosmic_essence"
+}

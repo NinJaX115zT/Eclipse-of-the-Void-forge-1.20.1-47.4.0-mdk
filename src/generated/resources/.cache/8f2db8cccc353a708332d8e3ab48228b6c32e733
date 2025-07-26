@@ -1,0 +1,11 @@
+// 1.20.1	2025-05-20T19:35:13.3241838	Tags for minecraft:block mod id eclipseofthevoid
+524e1ade084fae038ab1c2dd16a787be607f373e data/eclipseofthevoid/tags/blocks/ethereal_bee_pollination.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/eclipseofthevoid/tags/blocks/needs_cosmic_tool.json
+dfa35593877fbea3eb77b5f0e540461bfc21e071 data/eclipseofthevoid/tags/blocks/needs_infernal_tool.json
+a95b21c2d5ad14cceaf7bad45df170dcd60ec8dd data/eclipseofthevoid/tags/blocks/needs_void_tool.json
+f7fb399c24b8468249b836bb7aebbd64745536a7 data/eclipseofthevoid/tags/blocks/void_crop_growables.json
+a95b21c2d5ad14cceaf7bad45df170dcd60ec8dd data/forge/tags/blocks/needs_netherite_tool.json
+9db5a1856db0def202796e70704d91f7429359ed data/minecraft/tags/blocks/mineable/axe.json
+970ec7d653dd364bb178728c04e645579523de65 data/minecraft/tags/blocks/mineable/pickaxe.json
+7dca46ca79f36a03f6a2449b15decf08a4ae4528 data/minecraft/tags/blocks/needs_diamond_tool.json
+c9f036f56038254a882f198f7f1705940fec32a3 data/minecraft/tags/blocks/walls.json

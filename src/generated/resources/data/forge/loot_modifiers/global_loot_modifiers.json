@@ -1,0 +1,31 @@
+{
+  "entries": [
+    "eclipseofthevoid:infernal_nugget_from_sus_sand",
+    "eclipseofthevoid:ethereal_hive_silk_touch",
+    "eclipseofthevoid:void_essence_from_ghast",
+    "eclipseofthevoid:void_ingot_from_structures",
+    "eclipseofthevoid:infernal_ingot_from_nether_fortress",
+    "eclipseofthevoid:cosmic_ingot_from_stronghold_library",
+    "eclipseofthevoid:warden_drops_void_stuff",
+    "eclipseofthevoid:void_essence_from_piglin",
+    "eclipseofthevoid:void_ingot_from_spawner_chests",
+    "eclipseofthevoid:cosmic_nugget_from_sus_sand",
+    "eclipseofthevoid:void_ingot_from_ancient_city",
+    "eclipseofthevoid:wither_drops_infernal_ingot",
+    "eclipseofthevoid:cosmic_ingot_from_end_city",
+    "eclipseofthevoid:void_ingot_from_desert_pyramid",
+    "eclipseofthevoid:infernal_ingot_from_bastion",
+    "eclipseofthevoid:cosmic_essence_from_enderman",
+    "eclipseofthevoid:void_essence_from_creeper",
+    "eclipseofthevoid:cosmic_essence_from_shulker",
+    "eclipseofthevoid:dragon_drops_cosmic_essence",
+    "eclipseofthevoid:warden_drops_void_ingot",
+    "eclipseofthevoid:buried_eclipse_token_from_sus_sand",
+    "eclipseofthevoid:void_essence_from_piglin_brute",
+    "eclipseofthevoid:wither_drops_infernal_essence",
+    "eclipseofthevoid:ethereal_nest_silk_touch",
+    "eclipseofthevoid:void_ingot_from_village_blacksmith",
+    "eclipseofthevoid:void_nugget_from_sus_sand"
+  ],
+  "replace": false
+}

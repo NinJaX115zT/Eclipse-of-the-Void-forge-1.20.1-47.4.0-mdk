@@ -1,0 +1,9 @@
+{
+  "name": "Void Basics",
+  "description": "An introduction to the Tome and the mysteries of the Void.",
+  "icon": "minecraft:book",
+  "sortnum": 0,
+  "entries": [
+    "eclipseofthevoid:void_basics/introduction"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "eclipseofthevoid:infernal_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "eclipseofthevoid:infernal_ingot"
+  }
+}

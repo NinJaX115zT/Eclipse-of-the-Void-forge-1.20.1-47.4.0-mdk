@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "eclipseofthevoid:block/cosmic_bricks",
+    "side": "eclipseofthevoid:block/cosmic_bricks",
+    "top": "eclipseofthevoid:block/cosmic_bricks"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "void_essence_pickup": {
+    "subtitle": "sounds.eclipseofthevoid.void_essence_pickup",
+    "sounds": [
+      "eclipseofthevoid:void_essence_pickup"
+    ]
+  },
+  "infernal_essence_pickup": {
+    "subtitle": "sounds.eclipseofthevoid.infernal_essence_pickup",
+    "sounds": [
+      "eclipseofthevoid:infernal_essence_pickup"
+    ]
+  },
+  "cosmic_essence_pickup": {
+    "subtitle": "sounds.eclipseofthevoid.cosmic_essence_pickup",
+    "sounds": [
+      "eclipseofthevoid:cosmic_essence_pickup"
+    ]
+  }
+}

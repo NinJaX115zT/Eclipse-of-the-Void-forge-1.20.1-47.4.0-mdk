@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:void_bricks_from_ingots"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_void_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:void_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_void_ingot",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:void_bricks_from_ingots"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "I": {
+      "item": "eclipseofthevoid:infernal_ingot"
+    }
+  },
+  "pattern": [
+    "II",
+    "II"
+  ],
+  "result": {
+    "count": 4,
+    "item": "eclipseofthevoid:infernal_bricks"
+  },
+  "show_notification": true
+}

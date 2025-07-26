@@ -1,0 +1,14 @@
+{
+  "type": "eclipseofthevoid:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/wither"
+    },
+    {
+      "chance": 0.55,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "eclipseofthevoid:infernal_ingot"
+}

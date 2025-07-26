@@ -1,0 +1,14 @@
+{
+  "type": "eclipseofthevoid:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/ethereal_hive"
+    },
+    {
+      "chance": 1.0,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "eclipseofthevoid:ethereal_hive"
+}

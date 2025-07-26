@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cosmic_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:cosmic_shard"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:cosmic_slob"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cosmic_shard",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:cosmic_slob"
+    ]
+  },
+  "sends_telemetry_event": false
+}

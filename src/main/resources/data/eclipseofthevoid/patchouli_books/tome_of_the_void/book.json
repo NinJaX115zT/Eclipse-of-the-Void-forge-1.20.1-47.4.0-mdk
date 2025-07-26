@@ -1,0 +1,17 @@
+{
+  "name": "Tome of the Void Guide",
+  "subtitle": "Written by the Void Gods",
+  "landing_text": "You hold in your hands a tome stitched from darkness...",
+  "book_texture": "patchouli:textures/gui/book_purple.png",
+  "model": "eclipseofthevoid:tome_of_the_void",
+  "use_resource_pack": true,
+  "i18n": true,
+  "show_progress": true,
+  "book_color": "800080",
+  "text_color": "000000",
+  "header_color": "00CED1",
+  "link_color": "00008B",
+  "link_hover_color": "4682B4",
+  "progress_bar_color": "87CEFA",
+  "filler_texture": "eclipseofthevoid:textures/gui/tome_filler.png"
+}

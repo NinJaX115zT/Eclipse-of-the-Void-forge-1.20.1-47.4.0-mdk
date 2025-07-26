@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "eclipseofthevoid:infernal_bricks"
+    }
+  },
+  "pattern": [
+    "B",
+    "B",
+    "B"
+  ],
+  "result": {
+    "count": 6,
+    "item": "eclipseofthevoid:infernal_brick_wall"
+  },
+  "show_notification": true
+}

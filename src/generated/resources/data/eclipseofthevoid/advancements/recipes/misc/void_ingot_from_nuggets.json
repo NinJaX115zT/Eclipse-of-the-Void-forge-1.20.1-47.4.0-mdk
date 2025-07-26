@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:void_ingot_from_nuggets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_void_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:void_nugget"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_void_nugget",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:void_ingot_from_nuggets"
+    ]
+  },
+  "sends_telemetry_event": false
+}

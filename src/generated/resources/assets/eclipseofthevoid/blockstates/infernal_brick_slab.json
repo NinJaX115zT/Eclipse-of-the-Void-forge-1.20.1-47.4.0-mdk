@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "eclipseofthevoid:block/infernal_brick_slab"
+    },
+    "type=double": {
+      "model": "eclipseofthevoid:block/infernal_bricks"
+    },
+    "type=top": {
+      "model": "eclipseofthevoid:block/infernal_brick_slab_top"
+    }
+  }
+}

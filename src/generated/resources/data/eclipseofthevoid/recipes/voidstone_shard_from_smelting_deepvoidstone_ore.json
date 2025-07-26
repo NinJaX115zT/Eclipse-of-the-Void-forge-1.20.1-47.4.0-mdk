@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "group": "voidstone",
+  "ingredient": {
+    "item": "eclipseofthevoid:deepvoidstone_ore"
+  },
+  "result": "eclipseofthevoid:voidstone_shard"
+}
