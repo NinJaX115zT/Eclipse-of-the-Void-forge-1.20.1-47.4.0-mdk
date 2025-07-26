@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "eclipseofthevoid:block/void_mulcher_bottom",
+    "east": "eclipseofthevoid:block/void_mulcher_side",
+    "north": "eclipseofthevoid:block/void_mulcher_ready",
+    "south": "eclipseofthevoid:block/void_mulcher_side",
+    "up": "eclipseofthevoid:block/void_mulcher_top",
+    "west": "eclipseofthevoid:block/void_mulcher_side"
+  }
+}

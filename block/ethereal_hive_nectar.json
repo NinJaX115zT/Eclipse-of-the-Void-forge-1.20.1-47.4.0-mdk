@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "eclipseofthevoid:block/ethereal_hive_end",
+    "front": "eclipseofthevoid:block/ethereal_hive_front_nectar",
+    "side": "eclipseofthevoid:block/ethereal_hive_side",
+    "top": "eclipseofthevoid:block/ethereal_hive_end"
+  }
+}

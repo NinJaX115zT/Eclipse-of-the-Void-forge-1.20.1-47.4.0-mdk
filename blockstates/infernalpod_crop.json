@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "eclipseofthevoid:block/infernalpod_stage0"
+    },
+    "age=1": {
+      "model": "eclipseofthevoid:block/infernalpod_stage1"
+    },
+    "age=2": {
+      "model": "eclipseofthevoid:block/infernalpod_stage2"
+    },
+    "age=3": {
+      "model": "eclipseofthevoid:block/infernalpod_stage3"
+    },
+    "age=4": {
+      "model": "eclipseofthevoid:block/infernalpod_stage4"
+    },
+    "age=5": {
+      "model": "eclipseofthevoid:block/infernalpod_stage5"
+    },
+    "age=6": {
+      "model": "eclipseofthevoid:block/infernalpod_stage6"
+    },
+    "age=7": {
+      "model": "eclipseofthevoid:block/infernalpod_stage7"
+    }
+  }
+}
