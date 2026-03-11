@@ -2,6 +2,8 @@ package net.lucarioninja.eclipseofthevoid.entity;
 
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
 import net.lucarioninja.eclipseofthevoid.entity.custom.EtherealBeeEntity;
+import net.lucarioninja.eclipseofthevoid.entity.custom.ModBoatEntity;
+import net.lucarioninja.eclipseofthevoid.entity.custom.ModChestBoatEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -16,10 +18,15 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<EtherealBeeEntity>> ETHEREAL_BEE =
             ENTITY_TYPES.register("ethereal_bee", () -> EntityType.Builder
-                    .of(EtherealBeeEntity::new, MobCategory.CREATURE)
-                    .sized(1.0f, 1.1f) // your preferred size
+                    .of(EtherealBeeEntity::new, MobCategory.CREATURE).sized(1.0f, 1.1f)
                     .build(new ResourceLocation(EclipseOfTheVoid.MOD_ID, "ethereal_bee").toString()));
 
+    public static final RegistryObject<EntityType<ModBoatEntity>> MOD_BOAT =
+            ENTITY_TYPES.register("mod_boat", () -> EntityType.Builder.<ModBoatEntity>of(ModBoatEntity::new, MobCategory.MISC)
+                    .sized(1.375f, 0.5625f).build("mod_boat"));
+    public static final RegistryObject<EntityType<ModChestBoatEntity>> MOD_CHEST_BOAT =
+            ENTITY_TYPES.register("mod_chest_boat", () -> EntityType.Builder.<ModChestBoatEntity>of(ModChestBoatEntity::new, MobCategory.MISC)
+                    .sized(1.375f, 0.5625f).build("mod_chest_boat"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

@@ -3,6 +3,7 @@ package net.lucarioninja.eclipseofthevoid.item;
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
 import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
+import net.lucarioninja.eclipseofthevoid.entity.custom.ModBoatEntity;
 import net.lucarioninja.eclipseofthevoid.item.custom.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -48,7 +49,6 @@ public class ModItems  {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COSMIC_CORE = ITEMS.register("cosmic_core",
             () -> new Item(new Item.Properties()));
-
 
     // Ingots
     public static final RegistryObject<Item> VOID_NUGGET = ITEMS.register("void_nugget",
@@ -143,6 +143,22 @@ public class ModItems  {
     // Spawn Eggs
     public static final RegistryObject<SpawnEggItem> ETHEREAL_BEE_SPAWN_EGG = ITEMS.register("ethereal_bee_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ETHEREAL_BEE, 0xCA658E, 0x3A2339, new Item.Properties()));
+
+    // Signs
+    public static final RegistryObject<Item> ETHEREAL_SIGN = ITEMS.register("ethereal_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.ETHEREAL_SIGN.get(), ModBlocks.ETHEREAL_WALL_SIGN.get()));
+    public static final RegistryObject<Item> ETHEREAL_HANGING_SIGN = ITEMS.register("ethereal_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.ETHEREAL_HANGING_SIGN.get(), ModBlocks.ETHEREAL_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+
+    // Boats
+    public static final RegistryObject<Item> ETHEREAL_BOAT = ITEMS.register("ethereal_boat",
+            () -> new ModBoatItem(false, ModBoatEntity.Type.ETHEREAL, new Item.Properties()));
+    public static final RegistryObject<Item> ETHEREAL_CHEST_BOAT = ITEMS.register("ethereal_chest_boat",
+            () -> new ModBoatItem(true, ModBoatEntity.Type.ETHEREAL, new Item.Properties()));
+
+    // Chests
+    public static final RegistryObject<Item> ETHEREAL_CHEST = ITEMS.register("ethereal_chest",
+            () -> new EtherealChestItem(ModBlocks.ETHEREAL_CHEST.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -43,26 +44,31 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EtherealNestBlock extends Block implements EntityBlock {
+public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
 
     public static final IntegerProperty HONEY_LEVEL = BeehiveBlock.HONEY_LEVEL;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty GENERATED = BooleanProperty.create("generated");
 
     public EtherealNestBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HONEY_LEVEL, 0).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(HONEY_LEVEL, 0)
+                .setValue(FACING, Direction.NORTH)
+                .setValue(GENERATED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HONEY_LEVEL, FACING);
+        builder.add(HONEY_LEVEL, FACING, GENERATED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection())
-                .setValue(HONEY_LEVEL, 0);
+                .setValue(HONEY_LEVEL, 0)
+                .setValue(GENERATED, false);
     }
 
     @Override
@@ -180,9 +186,7 @@ public class EtherealNestBlock extends Block implements EntityBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return type == ModBlockEntities.ETHEREAL_NEST.get()
-                ? (lvl, pos, st, be) -> EtherealNestBlockEntity.tick(lvl, pos, st, (EtherealNestBlockEntity) be)
-                : null;
+        return createTickerHelper(type, ModBlockEntities.ETHEREAL_NEST.get(), EtherealNestBlockEntity::tick);
     }
 
     @Override

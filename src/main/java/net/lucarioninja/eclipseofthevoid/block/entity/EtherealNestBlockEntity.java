@@ -2,6 +2,7 @@ package net.lucarioninja.eclipseofthevoid.block.entity;
 
 import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHoneyCauldronBlock;
+import net.lucarioninja.eclipseofthevoid.block.custom.EtherealNestBlock;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
 import net.lucarioninja.eclipseofthevoid.entity.custom.EtherealBeeEntity;
 import net.minecraft.core.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -34,6 +36,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
     private float combProgress = 0;
     private int nestDripCooldown = 0;
     private int cauldronFillCooldown = 0;
+    private boolean starterBeesInitialized = false;
 
     private final List<StoredBee> storedBees = new ArrayList<>();
 
@@ -44,8 +47,47 @@ public class EtherealNestBlockEntity extends BlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, EtherealNestBlockEntity nest) {
         if (level.isClientSide) return;
 
+        nest.tryInitializeStarterBees(level, pos, state);
         nest.tickBeeLifecycle(level, pos, state);
         nest.tickDrippingMechanic(level, pos, state);
+    }
+
+    private void tryInitializeStarterBees(Level level, BlockPos pos, BlockState state) {
+        if (starterBeesInitialized) return;
+        if (!state.hasProperty(EtherealNestBlock.GENERATED)) return;
+        if (!state.getValue(EtherealNestBlock.GENERATED)) return;
+        if (!storedBees.isEmpty()) {
+            starterBeesInitialized = true;
+            setChanged();
+            return;
+        }
+
+        int roll = level.random.nextInt(100);
+        int beeCount;
+
+        if (roll < 75) {
+            beeCount = 1;
+        } else if (roll < 95) {
+            beeCount = 2;
+        } else {
+            beeCount = 3;
+        }
+
+        for (int i = 0; i < beeCount; i++) {
+            EtherealBeeEntity bee = new EtherealBeeEntity(ModEntities.ETHEREAL_BEE.get(), level);
+            bee.setHasNectarFlag(false);
+
+            CompoundTag tag = new CompoundTag();
+            bee.save(tag);
+
+            StoredBee storedBee = new StoredBee(tag);
+            storedBee.ticks = 0;
+            storedBees.add(storedBee);
+        }
+
+        level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 0.6F);
+        starterBeesInitialized = true;
+        setChanged();
     }
 
     private void tickBeeLifecycle(Level level, BlockPos pos, BlockState state) {
@@ -140,6 +182,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
             combProgress = 0F;
         }
 
+        System.out.println("Nest bee count now: " + storedBees.size());
         setChanged();
         return true;
     }
@@ -163,6 +206,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
             bee.ticks = beeTag.getInt("ticks");
             storedBees.add(bee);
         }
+        starterBeesInitialized = tag.getBoolean("starter_bees_initialized");
         combProgress = tag.getFloat("comb_progress");
         nestDripCooldown = tag.getInt("nest_drip_cooldown");
         cauldronFillCooldown = tag.getInt("cauldron_fill_cooldown");
@@ -178,6 +222,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
             beeTag.putInt("ticks", bee.ticks);
             list.add(beeTag);
         }
+        tag.putBoolean("starter_bees_initialized", starterBeesInitialized);
         tag.put("stored_bees", list);
         tag.putFloat("comb_progress", combProgress);
         tag.putInt("nest_drip_cooldown", nestDripCooldown);

@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
@@ -81,6 +82,37 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.dropSelf(ModBlocks.NEBULITE_FLOWER.get());
         this.add(ModBlocks.POTTED_NEBULITE_FLOWER.get(), createPotFlowerItemTable(ModBlocks.NEBULITE_FLOWER.get()));
+
+        this.dropSelf(ModBlocks.ETHEREAL_LOG.get());
+        this.dropSelf(ModBlocks.ETHEREAL_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_ETHEREAL_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_ETHEREAL_WOOD.get());
+        this.dropSelf(ModBlocks.ETHEREAL_PLANKS.get());
+        this.dropSelf(ModBlocks.ETHEREAL_CHEST.get());
+        this.dropSelf(ModBlocks.ETHEREAL_STAIRS.get());
+        this.dropSelf(ModBlocks.ETHEREAL_BUTTON.get());
+        this.dropSelf(ModBlocks.ETHEREAL_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.ETHEREAL_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.ETHEREAL_FENCE.get());
+        this.dropSelf(ModBlocks.ETHEREAL_FENCE_GATE.get());
+
+        this.add(ModBlocks.ETHEREAL_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ETHEREAL_SLAB.get()));
+        this.add(ModBlocks.ETHEREAL_DOOR.get(),
+                block -> createDoorTable(ModBlocks.ETHEREAL_DOOR.get()));
+
+        this.add(ModBlocks.ETHEREAL_LEAVES.get(),block ->
+                createLeavesDrops(block, ModBlocks.ETHEREAL_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.dropSelf(ModBlocks.ETHEREAL_SAPLING.get());
+
+        this.add(ModBlocks.ETHEREAL_SIGN.get(), block ->
+                createSingleItemTable(ModItems.ETHEREAL_SIGN.get()));
+        this.add(ModBlocks.ETHEREAL_WALL_SIGN.get(), block ->
+                createSingleItemTable(ModItems.ETHEREAL_SIGN.get()));
+        this.add(ModBlocks.ETHEREAL_HANGING_SIGN.get(), block ->
+                createSingleItemTable(ModItems.ETHEREAL_HANGING_SIGN.get()));
+        this.add(ModBlocks.ETHEREAL_WALL_HANGING_SIGN.get(), block ->
+                createSingleItemTable(ModItems.ETHEREAL_HANGING_SIGN.get()));
     }
 
     protected LootTable.Builder createVoidOreDrops(Block pBlock, Item item) {

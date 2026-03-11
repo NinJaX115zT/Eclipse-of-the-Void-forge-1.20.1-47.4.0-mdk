@@ -24,17 +24,17 @@ public class EtherealBeeGoToHiveGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (bee.getHivePos() == null || !bee.hasNectar() || bee.getTarget() != null) {
+        if (bee.getHivePos() == null || !bee.hasNectar() || bee.getTarget() != null || bee.isLingering()) {
             return false;
         }
 
         double distSq = bee.blockPosition().distSqr(bee.getHivePos());
-        return distSq > 64;
+        return distSq > 100;
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (bee.getHivePos() == null || !bee.hasNectar()) {
+        if (bee.getHivePos() == null || !bee.hasNectar() || bee.isLingering()) {
             return false;
         }
 

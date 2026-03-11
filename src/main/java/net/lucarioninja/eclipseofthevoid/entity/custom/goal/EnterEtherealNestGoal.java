@@ -26,7 +26,28 @@ public class EnterEtherealNestGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!bee.canEnterHive()) return false;
+        if (!bee.canEnterHive() || bee.isLingering()) return false;
+
+        // Prefer owned nest first
+        if (bee.hasPreferredHome() && !bee.preferredHomeIsHive()) {
+            BlockPos preferred = bee.getPreferredHomePos();
+            if (preferred != null && bee.level().getBlockState(preferred).getBlock() == ModBlocks.ETHEREAL_NEST.get()) {
+                BlockEntity be = bee.level().getBlockEntity(preferred);
+                if (be instanceof EtherealNestBlockEntity nest && nest.getBeeCount() < 5) {
+                    this.targetNestPos = preferred;
+                    return true;
+                } else {
+                    bee.clearPreferredHome();
+                }
+            } else {
+                bee.clearPreferredHome();
+            }
+        }
+
+        // Only sometimes look for a brand new nest
+        if (bee.getRandom().nextFloat() < 0.85F) {
+            return false;
+        }
 
         BlockPos nearestNest = findNearbyNest();
         if (nearestNest != null) {
@@ -76,20 +97,18 @@ public class EnterEtherealNestGoal extends Goal {
         }
 
         // Within entrance radius?
-        AABB nestArea = new AABB(targetNestPos).inflate(1.5D, 1.0D, 1.5D);
-        if (nestArea.contains(bee.position())) {
+        if (distSq <= 4.0D) {
             BlockEntity beEntity = bee.level().getBlockEntity(targetNestPos);
             if (beEntity instanceof EtherealNestBlockEntity nest) {
                 boolean success = nest.tryAddBee(bee);
                 if (success) {
+                    bee.setPreferredHome(targetNestPos, true);
+                    bee.level().playSound(null, targetNestPos, SoundEvents.BEEHIVE_ENTER, bee.getSoundSource(), 1.0F, 1.0F);
                     bee.resetNectarProgress();
                     bee.markNectarFalse();
-                    bee.onExitHive();
-                    bee.playSound(SoundEvents.BEEHIVE_ENTER, 1.0F, 1.0F);
                     bee.setDeltaMovement(0, 0, 0);
                     bee.discard();
                 } else {
-                    // Abort — nest full
                     bee.setHivePos(null);
                     stop();
                 }
@@ -105,9 +124,9 @@ public class EnterEtherealNestGoal extends Goal {
 
     private BlockPos findNearbyNest() {
         BlockPos beePos = bee.blockPosition();
-        int radius = 64;
+        int radius = 20; // Search radius for nearby nests
 
-        for (BlockPos pos : BlockPos.betweenClosed(beePos.offset(-radius, -2, -radius), beePos.offset(radius, 2, radius))) {
+        for (BlockPos pos : BlockPos.betweenClosed(beePos.offset(-radius, -16, -radius), beePos.offset(radius, 16, radius))) {
             BlockState state = bee.level().getBlockState(pos);
             if (state.getBlock() == ModBlocks.ETHEREAL_NEST.get()) {
                 return pos.immutable();

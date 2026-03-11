@@ -1,10 +1,12 @@
 package net.lucarioninja.eclipseofthevoid.datagen;
 
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
+import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -34,5 +36,14 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                         ModItems.COSMIC_CHESTPLATE.get(),
                         ModItems.COSMIC_LEGGINGS.get(),
                         ModItems.COSMIC_BOOTS.get());
+
+        this.tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.ETHEREAL_LOG.get().asItem())
+                .add(ModBlocks.ETHEREAL_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_ETHEREAL_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_ETHEREAL_WOOD.get().asItem());
+
+        this.tag(ItemTags.PLANKS)
+                .add(ModBlocks.ETHEREAL_PLANKS.get().asItem());
     }
 }

@@ -123,9 +123,28 @@ public class ModItemModelProvider extends ItemModelProvider {
                 modLoc("block/ethereal_hive_empty"));
         withExistingParent(ModBlocks.ETHEREAL_HONEY_CAULDRON.getId().getPath(),
                 mcLoc("item/cauldron"));
+
+        simpleBlockItemItemTexture(ModBlocks.ETHEREAL_DOOR);
+        withExistingParent(ModBlocks.ETHEREAL_STAIRS.getId().getPath(), modLoc("block/ethereal_stairs"));
+        withExistingParent(ModBlocks.ETHEREAL_SLAB.getId().getPath(), modLoc("block/ethereal_slab"));
+        withExistingParent(ModBlocks.ETHEREAL_PRESSURE_PLATE.getId().getPath(), modLoc("block/ethereal_pressure_plate"));
+        withExistingParent(ModBlocks.ETHEREAL_FENCE_GATE.getId().getPath(), modLoc("block/ethereal_fence_gate"));
+        withExistingParent("ethereal_trapdoor",
+                new ResourceLocation("eclipseofthevoid", "block/ethereal_trapdoor_bottom"));
+
+        fenceItem(ModBlocks.ETHEREAL_FENCE, ModBlocks.ETHEREAL_PLANKS);
+        buttonItem(ModBlocks.ETHEREAL_BUTTON, ModBlocks.ETHEREAL_PLANKS);
+
+        simpleItem(ModItems.ETHEREAL_SIGN);
+        simpleItem(ModItems.ETHEREAL_HANGING_SIGN);
+
+        simpleItem(ModItems.ETHEREAL_BOAT);
+        simpleItem(ModItems.ETHEREAL_CHEST_BOAT);
+
+        saplingItem(ModBlocks.ETHEREAL_SAPLING);
     }
 
-    // Shoutout to El_Redstoniano for making this
+    // Shoutout to El_Redstoniano for making this, and Kaupenjoe for the tutorial of it.
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
         final String MOD_ID = EclipseOfTheVoid.MOD_ID;
 
@@ -172,9 +191,36 @@ public class ModItemModelProvider extends ItemModelProvider {
             });
         }
     }
+
+    public void evenSimplerBlockItem(RegistryObject<Block> block) {
+        this.withExistingParent(EclipseOfTheVoid.MOD_ID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
+                mcLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
+    }
+
+    public void trapdoorItem(RegistryObject<Block> block) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
+                mcLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath() + "_bottom"));
+    }
+
+    public void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/fence_inventory"))
+                .texture("texture",  new ResourceLocation(EclipseOfTheVoid.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
+    public void buttonItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/button_inventory"))
+                .texture("texture",  new ResourceLocation(EclipseOfTheVoid.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
     public void wallItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
         this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall",  new ResourceLocation(EclipseOfTheVoid.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
+    private ItemModelBuilder saplingItem(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(EclipseOfTheVoid.MOD_ID,"block/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
@@ -197,5 +243,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/handheld")).texture("layer0",
                 new ResourceLocation(EclipseOfTheVoid.MOD_ID,"block/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder simpleBlockItemItemTexture(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(EclipseOfTheVoid.MOD_ID,"item/" + item.getId().getPath()));
     }
 }
