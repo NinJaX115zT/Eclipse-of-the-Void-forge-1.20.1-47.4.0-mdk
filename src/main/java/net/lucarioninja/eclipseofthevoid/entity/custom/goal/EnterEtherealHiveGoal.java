@@ -28,7 +28,23 @@ public class EnterEtherealHiveGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!bee.canEnterHive()) return false;
+        if (!bee.canEnterHive() || bee.isLingering()) return false;
+
+        // Prefer owned hive first
+        if (bee.hasPreferredHome() && bee.preferredHomeIsHive()) {
+            BlockPos preferred = bee.getPreferredHomePos();
+            if (preferred != null && bee.level().getBlockState(preferred).getBlock() == ModBlocks.ETHEREAL_HIVE.get()) {
+                this.targetHivePos = preferred;
+                return true;
+            } else {
+                bee.clearPreferredHome();
+            }
+        }
+
+        // Only sometimes look for a new hive
+        if (bee.getRandom().nextFloat() < 0.75F) {
+            return false;
+        }
 
         BlockPos nearestHive = findNearbyHive();
         if (nearestHive != null) {
@@ -77,11 +93,15 @@ public class EnterEtherealHiveGoal extends Goal {
                 stuckTicks = 0;
             }
 
-            if (stuckTicks > 80 && stuckTicks <= 200) {
+            if (stuckTicks > 140 && stuckTicks <= 260) {
                 bee.teleportSmartlyNearBlock(targetHivePos);
-            } else if (stuckTicks > 200) {
-                bee.setPos(targetHivePos.getX() + 0.5D, targetHivePos.getY() + 0.5D, targetHivePos.getZ() + 0.5D);
-                bee.getNavigation().stop();
+            } else if (stuckTicks > 260) {
+                bee.getNavigation().moveTo(
+                        targetHivePos.getX() + 0.5D,
+                        targetHivePos.getY() + 0.5D,
+                        targetHivePos.getZ() + 0.5D,
+                        1.0D
+                );
                 stuckTicks = 0;
             }
         } else {
@@ -96,6 +116,7 @@ public class EnterEtherealHiveGoal extends Goal {
             BlockEntity blockEntity = bee.level().getBlockEntity(targetHivePos);
             if (blockEntity instanceof EtherealHiveBlockEntity hive) {
                 hive.addBee(bee);
+                bee.setPreferredHome(targetHivePos, true);
                 bee.resetNectarProgress();
                 bee.markNectarFalse();
                 bee.onExitHive();
@@ -117,7 +138,7 @@ public class EnterEtherealHiveGoal extends Goal {
 
     private BlockPos findNearbyHive() {
         BlockPos beePos = bee.blockPosition();
-        int radius = 64; // increased search range (4 chunks)
+        int radius = 20; // Search radius for nearby hives
 
         for (BlockPos pos : BlockPos.betweenClosed(beePos.offset(-radius, -2, -radius), beePos.offset(radius, 2, radius))) {
             BlockState state = bee.level().getBlockState(pos);

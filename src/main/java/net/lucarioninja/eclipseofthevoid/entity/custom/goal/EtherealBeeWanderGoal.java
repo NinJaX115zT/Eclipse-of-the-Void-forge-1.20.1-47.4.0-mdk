@@ -20,7 +20,9 @@ public class EtherealBeeWanderGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !bee.hasNectar() && bee.getTarget() == null && !bee.getNavigation().isInProgress();
+        return bee.getTarget() == null
+                && !bee.getNavigation().isInProgress()
+                && (!bee.hasNectar() || bee.isLingering());
     }
 
     @Override

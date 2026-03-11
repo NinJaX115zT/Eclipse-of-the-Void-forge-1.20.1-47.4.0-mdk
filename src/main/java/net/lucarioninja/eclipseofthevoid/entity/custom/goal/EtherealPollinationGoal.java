@@ -30,7 +30,12 @@ public class EtherealPollinationGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!bee.canPollinate()) return false;
+        if (!bee.canPollinate() || bee.isLingering()) return false;
+
+        // Sometimes just don't care yet
+        if (bee.getRandom().nextFloat() < 0.65F) {
+            return false;
+        }
 
         targetFlower = findNearbyEtherealFlower();
         if (targetFlower != null) {
@@ -48,10 +53,9 @@ public class EtherealPollinationGoal extends Goal {
     @Override
     public void start() {
         currentPhase = Phase.APPROACHING;
-        evaluationTicks = 0;
+        evaluationTicks = 10 + bee.getRandom().nextInt(30);
         pollinateTicks = 0;
         requiredPollinateTicks = 50 + bee.getRandom().nextInt(21);
-        bee.getNavigation().moveTo(targetFlower.getX() + 0.5, targetFlower.getY() + 0.5, targetFlower.getZ() + 0.5, 0.8D);
     }
 
     @Override
@@ -61,8 +65,14 @@ public class EtherealPollinationGoal extends Goal {
             return;
         }
 
+
         if (targetFlower == null || bee.level().getBlockState(targetFlower).isAir()) {
             rejectAndReset();
+            return;
+        }
+
+        if (currentPhase == Phase.APPROACHING && evaluationTicks > 0) {
+            evaluationTicks--;
             return;
         }
 
@@ -170,13 +180,15 @@ public class EtherealPollinationGoal extends Goal {
     private BlockPos findNearbyEtherealFlower() {
         BlockPos origin = bee.blockPosition();
         List<BlockPos> found = new ArrayList<>();
-        int range = 64;
+        int range = 12; // Search radius for flowers
 
         for (int y = -2; y <= 2; y++) {
             for (int x = -range; x <= range; x++) {
                 for (int z = -range; z <= range; z++) {
                     BlockPos pos = origin.offset(x, y, z);
-                    if (bee.isEtherealFlower(bee.level().getBlockState(pos))) {
+                    if (bee.isEtherealFlower(bee.level().getBlockState(pos))
+                            && !isFlowerCrowded(pos)
+                            && canAccessFlower(pos)) {
                         found.add(pos.immutable());
                     }
                 }
@@ -188,5 +200,21 @@ public class EtherealPollinationGoal extends Goal {
             return found.get(0);
         }
         return null;
+    }
+
+    private boolean isFlowerCrowded(BlockPos flowerPos) {
+        return !bee.level().getEntitiesOfClass(
+                EtherealBeeEntity.class,
+                new net.minecraft.world.phys.AABB(flowerPos).inflate(2.0D),
+                otherBee -> otherBee != bee && flowerPos.equals(otherBee.getFlowerPos())
+        ).isEmpty();
+    }
+
+    private boolean canAccessFlower(BlockPos flowerPos) {
+        BlockPos above = flowerPos.above();
+        BlockPos aboveTwo = flowerPos.above(2);
+
+        return bee.level().getBlockState(above).isAir()
+                || bee.level().getBlockState(aboveTwo).isAir();
     }
 }

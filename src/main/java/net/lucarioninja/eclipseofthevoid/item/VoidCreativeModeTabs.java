@@ -39,6 +39,8 @@ public class VoidCreativeModeTabs {
                         output.accept(ModItems.VOID_CORE.get());
                         output.accept(ModItems.INFERNAL_CORE.get());
                         output.accept(ModItems.COSMIC_CORE.get());
+                        output.accept(ModItems.ETHEREAL_BOAT.get());
+                        output.accept(ModItems.ETHEREAL_CHEST_BOAT.get());
 
                         // Adds food items to the tab
                         output.accept(ModItems.VOIDBLOSSOM_SEEDS.get());
@@ -104,6 +106,24 @@ public class VoidCreativeModeTabs {
                         output.accept(ModBlocks.ETHEREAL_NEST.get());
                         output.accept(ModBlocks.ETHEREAL_HIVE.get());
                         output.accept(ModBlocks.ETHEREAL_HONEY_CAULDRON.get());
+                        output.accept(ModBlocks.ETHEREAL_LOG.get());
+                        output.accept(ModBlocks.ETHEREAL_WOOD.get());
+                        output.accept(ModBlocks.STRIPPED_ETHEREAL_LOG.get());
+                        output.accept(ModBlocks.STRIPPED_ETHEREAL_WOOD.get());
+                        output.accept(ModBlocks.ETHEREAL_PLANKS.get());
+                        output.accept(ModBlocks.ETHEREAL_CHEST.get());
+                        output.accept(ModBlocks.ETHEREAL_STAIRS.get());
+                        output.accept(ModBlocks.ETHEREAL_SLAB.get());
+                        output.accept(ModBlocks.ETHEREAL_BUTTON.get());
+                        output.accept(ModBlocks.ETHEREAL_PRESSURE_PLATE.get());
+                        output.accept(ModBlocks.ETHEREAL_FENCE.get());
+                        output.accept(ModBlocks.ETHEREAL_FENCE_GATE.get());
+                        output.accept(ModBlocks.ETHEREAL_DOOR.get());
+                        output.accept(ModBlocks.ETHEREAL_TRAPDOOR.get());
+                        output.accept(ModBlocks.ETHEREAL_LEAVES.get());
+                        output.accept(ModBlocks.ETHEREAL_SIGN.get());
+                        output.accept(ModBlocks.ETHEREAL_HANGING_SIGN.get());
+                        output.accept(ModBlocks.ETHEREAL_SAPLING.get());
 
                         // Adds Spawn Eggs to the tab
                         output.accept(ModItems.ETHEREAL_BEE_SPAWN_EGG.get());

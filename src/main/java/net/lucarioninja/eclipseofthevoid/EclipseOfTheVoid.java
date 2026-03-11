@@ -5,6 +5,7 @@ import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.block.entity.ModBlockEntities;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
 import net.lucarioninja.eclipseofthevoid.entity.client.EtherealBeeRenderer;
+import net.lucarioninja.eclipseofthevoid.entity.client.ModBoatRenderer;
 import net.lucarioninja.eclipseofthevoid.item.ModItems;
 import net.lucarioninja.eclipseofthevoid.item.VoidCreativeModeTabs;
 import net.lucarioninja.eclipseofthevoid.loot.ModLootModifers;
@@ -12,10 +13,13 @@ import net.lucarioninja.eclipseofthevoid.particles.ModParticles;
 import net.lucarioninja.eclipseofthevoid.screen.EtherealHiveScreen;
 import net.lucarioninja.eclipseofthevoid.screen.ModMenuTypes;
 import net.lucarioninja.eclipseofthevoid.sound.ModSounds;
+import net.lucarioninja.eclipseofthevoid.util.ModWoodTypes;
 import net.lucarioninja.eclipseofthevoid.villager.ModVillagers;
+import net.lucarioninja.eclipseofthevoid.worldgen.tree.decorator.ModTreeDecorators;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
@@ -53,6 +57,8 @@ public class EclipseOfTheVoid {
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+
+        ModTreeDecorators.TREE_DECORATORS.register(modEventBus);
 
         ModMenuTypes.register(modEventBus);
 
@@ -141,6 +147,8 @@ public class EclipseOfTheVoid {
             event.accept(ModItems.COSMIC_PICKAXE);
             event.accept(ModItems.COSMIC_AXE);
             event.accept(ModItems.COSMIC_SHOVEL);
+            event.accept(ModItems.ETHEREAL_BOAT);
+            event.accept(ModItems.ETHEREAL_CHEST_BOAT);
         }
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             // Natural Blocks Tab (Ores)
@@ -150,6 +158,7 @@ public class EclipseOfTheVoid {
             event.accept(ModBlocks.COSMIC_ORE);
             event.accept(ModBlocks.NEBULITE_FLOWER);
             event.accept(ModBlocks.ETHEREAL_NEST);
+            event.accept(ModBlocks.ETHEREAL_SAPLING);
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -167,7 +176,17 @@ public class EclipseOfTheVoid {
             event.accept(ModBlocks.INFERNAL_BRICK_SLAB);
             event.accept(ModBlocks.COSMIC_BRICKS);
             event.accept(ModBlocks.COSMIC_BRICK_WALL);
+            event.accept(ModBlocks.COSMIC_BRICK_SLAB);
             event.accept(ModBlocks.VOID_MULCHER);
+            event.accept(ModBlocks.ETHEREAL_LOG);
+            event.accept(ModBlocks.ETHEREAL_WOOD);
+            event.accept(ModBlocks.STRIPPED_ETHEREAL_LOG);
+            event.accept(ModBlocks.STRIPPED_ETHEREAL_WOOD);
+            event.accept(ModBlocks.ETHEREAL_PLANKS);
+            event.accept(ModBlocks.ETHEREAL_SLAB);
+            event.accept(ModBlocks.ETHEREAL_STAIRS);
+            event.accept(ModBlocks.ETHEREAL_FENCE);
+            event.accept(ModBlocks.ETHEREAL_LEAVES);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
@@ -175,11 +194,23 @@ public class EclipseOfTheVoid {
             event.accept(ModBlocks.ETHEREAL_NEST);
             event.accept(ModBlocks.ETHEREAL_HIVE);
             event.accept(ModBlocks.ETHEREAL_HONEY_CAULDRON);
+            event.accept(ModBlocks.ETHEREAL_SIGN);
+            event.accept(ModBlocks.ETHEREAL_HANGING_SIGN);
+            event.accept(ModBlocks.ETHEREAL_CHEST);
         }
 
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             // Spawn Eggs Tab
             event.accept(ModItems.ETHEREAL_BEE_SPAWN_EGG);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
+            // Redstone Blocks Tab (Redstone Components)
+            event.accept(ModBlocks.ETHEREAL_BUTTON);
+            event.accept(ModBlocks.ETHEREAL_PRESSURE_PLATE);
+            event.accept(ModBlocks.ETHEREAL_DOOR);
+            event.accept(ModBlocks.ETHEREAL_FENCE_GATE);
+            event.accept(ModBlocks.ETHEREAL_TRAPDOOR);
         }
     }
 
@@ -194,9 +225,15 @@ public class EclipseOfTheVoid {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            Sheets.addWoodType(ModWoodTypes.ETHEREAL);
+
             EntityRenderers.register(ModEntities.ETHEREAL_BEE.get(), EtherealBeeRenderer::new);
+            EntityRenderers.register(ModEntities.MOD_BOAT.get(), pContext -> new ModBoatRenderer(pContext, false));
+            EntityRenderers.register(ModEntities.MOD_CHEST_BOAT.get(), pContext -> new ModBoatRenderer(pContext, true));
+
             event.enqueueWork(() -> {ItemBlockRenderTypes.setRenderLayer(ModBlocks.ETHEREAL_HONEY_BLOCK.get(), RenderType.translucent());
             });
+
 
             MenuScreens.register(ModMenuTypes.ETHEREAL_HIVE_MENU.get(), EtherealHiveScreen::new);
         }

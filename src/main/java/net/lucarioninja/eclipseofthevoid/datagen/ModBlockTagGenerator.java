@@ -82,7 +82,20 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
         this.tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(ModBlocks.VOID_MULCHER.get(),
                         ModBlocks.ETHEREAL_NEST.get(),
-                        ModBlocks.ETHEREAL_HIVE.get());
+                        ModBlocks.ETHEREAL_HIVE.get(),
+                        ModBlocks.ETHEREAL_LOG.get(),
+                        ModBlocks.ETHEREAL_WOOD.get(),
+                        ModBlocks.STRIPPED_ETHEREAL_LOG.get(),
+                        ModBlocks.STRIPPED_ETHEREAL_WOOD.get(),
+                        ModBlocks.ETHEREAL_PLANKS.get(),
+                        ModBlocks.ETHEREAL_FENCE.get(),
+                        ModBlocks.ETHEREAL_FENCE_GATE.get(),
+                        ModBlocks.ETHEREAL_STAIRS.get(),
+                        ModBlocks.ETHEREAL_SLAB.get(),
+                        ModBlocks.ETHEREAL_BUTTON.get(),
+                        ModBlocks.ETHEREAL_PRESSURE_PLATE.get(),
+                        ModBlocks.ETHEREAL_TRAPDOOR.get(),
+                        ModBlocks.ETHEREAL_DOOR.get());
 
         this.tag(BlockTags.WALLS)
                 .add(ModBlocks.VOID_BRICK_WALL.get(),
@@ -95,5 +108,18 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
         this.tag(VOID_CROP_GROWABLES)
                 .add(ModBlocks.VOIDBLOSSOM_CROP.get(),
                         ModBlocks.INFERNALPOD_CROP.get());
+
+        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.ETHEREAL_LOG.get())
+                .add(ModBlocks.ETHEREAL_WOOD.get())
+                .add(ModBlocks.STRIPPED_ETHEREAL_LOG.get())
+                .add(ModBlocks.STRIPPED_ETHEREAL_WOOD.get());
+
+        this.tag(BlockTags.PLANKS)
+                .add(ModBlocks.ETHEREAL_PLANKS.get());
+        this.tag(BlockTags.FENCES)
+                .add(ModBlocks.ETHEREAL_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES)
+                .add(ModBlocks.ETHEREAL_FENCE_GATE.get());
     }
 }

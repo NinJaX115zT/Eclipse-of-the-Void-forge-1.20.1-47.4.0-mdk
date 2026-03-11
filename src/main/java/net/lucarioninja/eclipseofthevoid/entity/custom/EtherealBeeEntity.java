@@ -53,6 +53,9 @@ public class EtherealBeeEntity extends Bee {
     private int hiveReEntryCooldown = 0;
     private Vec3 lastPosition = Vec3.ZERO;
     private int stuckCounter = 0;
+    private int teleportCooldown = 0;
+    private BlockPos preferredHomePos;
+    private boolean preferredHomeIsHive = false;
 
     public EtherealBeeEntity(EntityType<? extends Bee> type, Level world) {
         super(type, world);
@@ -108,6 +111,10 @@ public class EtherealBeeEntity extends Bee {
         if (hivePos != null) {
             tag.putLong("HivePos", hivePos.asLong());
         }
+        if (preferredHomePos != null) {
+            tag.putLong("PreferredHomePos", preferredHomePos.asLong());
+            tag.putBoolean("PreferredHomeIsHive", preferredHomeIsHive);
+        }
     }
 
     @Override
@@ -117,6 +124,10 @@ public class EtherealBeeEntity extends Bee {
         this.setHasNectarFlag(tag.getBoolean("HasNectar"));
         if (tag.contains("HivePos")) {
             hivePos = BlockPos.of(tag.getLong("HivePos"));
+        }
+        if (tag.contains("PreferredHomePos")) {
+            preferredHomePos = BlockPos.of(tag.getLong("PreferredHomePos"));
+            preferredHomeIsHive = tag.getBoolean("PreferredHomeIsHive");
         }
     }
 
@@ -133,6 +144,9 @@ public class EtherealBeeEntity extends Bee {
         tickPollinationCooldown();
         tickHiveCooldown();
         tickLingeringTime();
+
+        // Cooldown for smart teleporting when stuck
+        if (teleportCooldown > 0) teleportCooldown--;
 
         // Early exit if lingering (post-pollination chill phase)
         if (lingerTime > 0) return;
@@ -153,10 +167,9 @@ public class EtherealBeeEntity extends Bee {
     }
 
     private void tickLingeringTime() {
-        if (this.hasNectar() && this.getHivePos() == null && !this.isVehicle()) {
-            lingerTime = this.random.nextInt(40) + 40;
+        if (lingerTime > 0) {
+            lingerTime--;
         }
-        if (lingerTime > 0) lingerTime--;
     }
 
     private void tickHoverEffects() {
@@ -197,14 +210,17 @@ public class EtherealBeeEntity extends Bee {
                         !stateBelow.is(ModBlocks.ETHEREAL_HIVE.get())
         );
 
-        if (isInBadBlock) {
-            if (this.tickCount % 20 == 0) {
+        if (isInBadBlock && !this.getNavigation().isInProgress()) {
+            if (this.tickCount % 40 == 0) {
                 this.smartNudge();
             }
         }
     }
 
     public void smartNudge() {
+        // Prevent spamming teleport if already trying to escape
+        if (teleportCooldown > 0) return;
+
         for (Direction direction : Direction.values()) {
             BlockPos sidePos = this.blockPosition().relative(direction);
             BlockState sideState = this.level().getBlockState(sidePos);
@@ -212,11 +228,13 @@ public class EtherealBeeEntity extends Bee {
             if (sideState.isAir()) {
                 this.setPos(sidePos.getX() + 0.5D, sidePos.getY() + 0.5D, sidePos.getZ() + 0.5D);
                 this.getNavigation().stop();
-                this.level().playSound(null, sidePos, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 0.2f, 2.0f);
+                this.level().playSound(null, sidePos, SoundEvents.CHORUS_FLOWER_GROW, this.getSoundSource(), 0.2f, 2.0f);
 
                 if (this.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.END_ROD, sidePos.getX() + 0.5D, sidePos.getY() + 0.5D, sidePos.getZ() + 0.5D, 8, 0.1, 0.1, 0.1, 0.0);
                 }
+                // Set cooldown to prevent immediate re-teleporting if still stuck
+                teleportCooldown = 100;
                 break;
             }
         }
@@ -232,8 +250,8 @@ public class EtherealBeeEntity extends Bee {
         if (!this.getNavigation().isInProgress() && this.getTarget() == null) {
             if (this.position().distanceToSqr(lastPosition) < 0.01) {
                 stuckCounter++;
-                if (stuckCounter > 60) {
-                    teleportSmartlyNearBlock(this.blockPosition().above(3));
+                if (stuckCounter > 120) {
+                    teleportToNearbyOpenAir();
                     stuckCounter = 0;
                 }
             } else {
@@ -259,6 +277,10 @@ public class EtherealBeeEntity extends Bee {
 
     public void setLingerTime(int time) {
         this.lingerTime = time;
+    }
+
+    public boolean isLingering() {
+        return this.lingerTime > 0;
     }
 
     public float getNectarProgress() {
@@ -355,12 +377,34 @@ public class EtherealBeeEntity extends Bee {
         return hivePos;
     }
 
+    public void setPreferredHome(BlockPos pos, boolean isHive) {
+        this.preferredHomePos = pos;
+        this.preferredHomeIsHive = isHive;
+    }
+
+    @Nullable
+    public BlockPos getPreferredHomePos() {
+        return preferredHomePos;
+    }
+
+    public boolean hasPreferredHome() {
+        return preferredHomePos != null;
+    }
+
+    public boolean preferredHomeIsHive() {
+        return preferredHomeIsHive;
+    }
+
+    public void clearPreferredHome() {
+        this.preferredHomePos = null;
+    }
+
     public void onExitHive() {
         this.getNavigation().stop();
-        this.setLingerTime(this.getRandom().nextInt(60) + 40);
+        this.setLingerTime(200 + this.getRandom().nextInt(200)); // 10–20 seconds
         this.wasJustInHive = true;
-        this.hiveReEntryCooldown = 600; // 30 seconds before allowed back in
-        this.pollinationCooldown = 200; // 10 seconds before allowed to pollinate again
+        this.hiveReEntryCooldown = 800; // longer before re-entry
+        this.pollinationCooldown = 300; // longer before flower obsession resumes
     }
 
     public boolean consumeJustExitedHiveFlag() {
@@ -393,11 +437,23 @@ public class EtherealBeeEntity extends Bee {
         BlockState state = this.level().getBlockState(blockPos);
         Direction facing = state.getOptionalValue(EtherealHiveBlock.FACING).orElse(Direction.NORTH);
 
-        Direction[] directions = new Direction[]{
+        Direction[] horizontalDirections = new Direction[]{
                 facing,
                 facing.getClockWise(),
                 facing.getCounterClockWise(),
-                facing.getOpposite(),
+                facing.getOpposite()
+        };
+
+        java.util.List<Direction> shuffled =
+                new java.util.ArrayList<>(java.util.Arrays.asList(horizontalDirections));
+
+        java.util.Collections.shuffle(shuffled, new java.util.Random());
+
+        Direction[] directions = new Direction[]{
+                shuffled.get(0),
+                shuffled.get(1),
+                shuffled.get(2),
+                shuffled.get(3),
                 Direction.UP,
                 Direction.DOWN
         };
@@ -416,12 +472,42 @@ public class EtherealBeeEntity extends Bee {
     }
 
     private void teleportWithEffect(BlockPos pos) {
+        // Prevent spamming teleport if already trying to escape
+        if (teleportCooldown > 0) return;
+
         this.setPos(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
         this.getNavigation().stop();
-        this.level().playSound(null, pos, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 0.2f, 2.0f);
+        this.level().playSound(null, pos, SoundEvents.CHORUS_FLOWER_GROW, this.getSoundSource(), 0.2f, 2.0f);
 
         if (this.level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 10, 0.1, 0.1, 0.1, 0.0);
+        }
+        teleportCooldown = 100;
+    }
+
+    public void resetBeeBrainAfterStuck() {
+        this.getNavigation().stop();
+        this.clearFlowerPos();
+        this.setDeltaMovement(0, 0, 0);
+        this.setLingerTime(40 + this.getRandom().nextInt(40)); // short reset wander time
+    }
+
+    public void teleportToNearbyOpenAir() {
+        BlockPos origin = this.blockPosition();
+
+        for (int tries = 0; tries < 20; tries++) {
+            int offsetX = this.getRandom().nextInt(9) - 4;
+            int offsetY = this.getRandom().nextInt(5) - 2;
+            int offsetZ = this.getRandom().nextInt(9) - 4;
+
+            BlockPos candidate = origin.offset(offsetX, offsetY, offsetZ);
+
+            if (this.level().getBlockState(candidate).isAir()
+                    && this.level().getBlockState(candidate.above()).isAir()) {
+                teleportWithEffect(candidate);
+                resetBeeBrainAfterStuck();
+                return;
+            }
         }
     }
 

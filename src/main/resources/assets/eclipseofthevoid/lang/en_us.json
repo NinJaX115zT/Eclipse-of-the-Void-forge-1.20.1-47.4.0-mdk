@@ -60,6 +60,9 @@
   "item.eclipseofthevoid.cosmic_leggings": "Cosmic Leggings",
   "item.eclipseofthevoid.cosmic_boots": "Cosmic Boots",
 
+  "item.eclipseofthevoid.ethereal_boat": "Ethereal Boat",
+  "item.eclipseofthevoid.ethereal_chest_boat": "Ethereal Chest Boat",
+
   "item.eclipseofthevoid.ethereal_bee_spawn_egg": "Ethereal Bee Spawn Egg",
 
   "block.eclipseofthevoid.voidstone_ore": "Voidstone Ore",
@@ -82,16 +85,45 @@
   "block.eclipseofthevoid.cosmic_brick_slab": "Cosmic Brick Slab",
   "block.eclipseofthevoid.void_mulcher": "Void Mulcher",
 
+  "block.eclipseofthevoid.ethereal_log": "Ethereal Log",
+  "block.eclipseofthevoid.ethereal_wood": "Ethereal Wood",
+  "block.eclipseofthevoid.stripped_ethereal_log": "Stripped Ethereal Log",
+  "block.eclipseofthevoid.stripped_ethereal_wood": "Stripped Ethereal Wood",
+  "block.eclipseofthevoid.ethereal_planks": "Ethereal Planks",
+  "block.eclipseofthevoid.ethereal_chest": "Ethereal Chest",
+  "block.eclipseofthevoid.ethereal_leaves": "Ethereal Leaves",
+  "block.eclipseofthevoid.ethereal_stairs": "Ethereal Stairs",
+  "block.eclipseofthevoid.ethereal_slab": "Ethereal Slab",
+  "block.eclipseofthevoid.ethereal_button": "Ethereal Button",
+  "block.eclipseofthevoid.ethereal_pressure_plate": "Ethereal Pressure Plate",
+  "block.eclipseofthevoid.ethereal_fence": "Ethereal Fence",
+  "block.eclipseofthevoid.ethereal_fence_gate": "Ethereal Fence Gate",
+  "block.eclipseofthevoid.ethereal_door": "Ethereal Door",
+  "block.eclipseofthevoid.ethereal_trapdoor": "Ethereal Trapdoor",
+
+  "block.eclipseofthevoid.ethereal_sign": "Ethereal Sign",
+  "block.eclipseofthevoid.ethereal_hanging_sign": "Ethereal Hanging Sign",
+
+
   "block.eclipseofthevoid.nebulite_flower": "Nebulite Flower",
   "block.eclipseofthevoid.ethereal_nest": "Ethereal Nest",
   "block.eclipseofthevoid.ethereal_hive": "Ethereal Hive",
   "block.eclipseofthevoid.ethereal_honey_cauldron": "Ethereal Honey Cauldron",
+  "block.eclipseofthevoid.ethereal_sapling": "Ethereal Sapling",
 
   "entity.minecraft.villager.eclipseofthevoid.void_cultivator": "Void Cultivator",
+  "entity.eclipseofthevoid.ethereal_bee": "Ethereal Bee",
+  "entity.eclipseofthevoid.mod_chest_boat": "Boat With Chest",
 
   "sounds.eclipseofthevoid.void_essence_pickup": "Picked up Void Essence",
   "sounds.eclipseofthevoid.infernal_essence_pickup": "Picked up Infernal Essence",
   "sounds.eclipseofthevoid.cosmic_essence_pickup": "Picked up Cosmic Essence",
 
-  "creativetab.void_tab": "Void Tab"
+  "creativetab.void_tab": "Void Tab",
+
+  "config.jade.plugin_eclipseofthevoid.ethereal_nest_info": "Ethereal Nest Info",
+  "tooltip.eclipseofthevoid.ethereal_nest_bees": "Bees: %s/%s",
+
+  "container.eclipseofthevoid.ethereal_chest": "Ethereal Chest",
+  "container.eclipseofthevoid.ethereal_chest_large": "Large Ethereal Chest"
 }

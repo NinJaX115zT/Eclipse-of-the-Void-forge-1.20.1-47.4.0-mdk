@@ -6,9 +6,11 @@ import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHiveBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHoneyCauldronBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.InfernalpodCropBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.VoidblossomCropBlock;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,6 +19,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Function;
@@ -48,7 +51,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock((SlabBlock) ModBlocks.VOID_BRICK_SLAB.get(), blockTexture(ModBlocks.VOID_BRICKS.get()), blockTexture(ModBlocks.VOID_BRICKS.get()));
         slabBlock((SlabBlock) ModBlocks.INFERNAL_BRICK_SLAB.get(), blockTexture(ModBlocks.INFERNAL_BRICKS.get()), blockTexture(ModBlocks.INFERNAL_BRICKS.get()));
         slabBlock((SlabBlock) ModBlocks.COSMIC_BRICK_SLAB.get(), blockTexture(ModBlocks.COSMIC_BRICKS.get()), blockTexture(ModBlocks.COSMIC_BRICKS.get()));
-
 
         customHoneyBlockModel(ModBlocks.ETHEREAL_HONEY_BLOCK);
 
@@ -146,8 +148,74 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 blockTexture(ModBlocks.NEBULITE_FLOWER.get())).renderType("cutout"));
         simpleBlockWithItem(ModBlocks.POTTED_NEBULITE_FLOWER.get(), models().singleTexture("potted_nebulite_flower", new ResourceLocation("flower_pot_cross"), "plant",
                 blockTexture(ModBlocks.NEBULITE_FLOWER.get())).renderType("cutout"));
+
+        logBlock(((RotatedPillarBlock) ModBlocks.ETHEREAL_LOG.get()));
+        axisBlock(((RotatedPillarBlock) ModBlocks.ETHEREAL_WOOD.get()), blockTexture(ModBlocks.ETHEREAL_LOG.get()), blockTexture(ModBlocks.ETHEREAL_LOG.get()));
+
+        axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ETHEREAL_LOG.get()), blockTexture(ModBlocks.STRIPPED_ETHEREAL_LOG.get()),
+                new ResourceLocation(EclipseOfTheVoid.MOD_ID, "block/stripped_ethereal_log_top"));
+        axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ETHEREAL_WOOD.get()), blockTexture(ModBlocks.STRIPPED_ETHEREAL_LOG.get()),
+                blockTexture(ModBlocks.STRIPPED_ETHEREAL_LOG.get()));
+
+        blockItem(ModBlocks.ETHEREAL_LOG);
+        blockItem(ModBlocks.ETHEREAL_WOOD);
+        blockItem(ModBlocks.STRIPPED_ETHEREAL_LOG);
+        blockItem(ModBlocks.STRIPPED_ETHEREAL_WOOD);
+        blockWithItem(ModBlocks.ETHEREAL_PLANKS);
+        leavesBlock(ModBlocks.ETHEREAL_LEAVES);
+
+        stairsBlock(((StairBlock) ModBlocks.ETHEREAL_STAIRS.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        slabBlock(((SlabBlock) ModBlocks.ETHEREAL_SLAB.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.ETHEREAL_BUTTON.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.ETHEREAL_PRESSURE_PLATE.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        fenceBlock(((FenceBlock) ModBlocks.ETHEREAL_FENCE.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        fenceGateBlock(((FenceGateBlock) ModBlocks.ETHEREAL_FENCE_GATE.get()), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        doorBlockWithRenderType(((DoorBlock) ModBlocks.ETHEREAL_DOOR.get()), modLoc("block/ethereal_door_bottom"), modLoc("block/ethereal_door_top"), "cutout");
+        trapdoorBlockWithRenderType(((TrapDoorBlock) ModBlocks.ETHEREAL_TRAPDOOR.get()), modLoc("block/ethereal_trapdoor"), true, "cutout");
+
+        signBlock(((StandingSignBlock) ModBlocks.ETHEREAL_SIGN.get()), ((WallSignBlock) ModBlocks.ETHEREAL_WALL_SIGN.get()),
+                blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+        hangingSignBlock(ModBlocks.ETHEREAL_HANGING_SIGN.get(), ModBlocks.ETHEREAL_WALL_HANGING_SIGN.get(), blockTexture(ModBlocks.ETHEREAL_PLANKS.get()));
+
+        saplingBlock(ModBlocks.ETHEREAL_SAPLING);
+
+        simpleBlock(ModBlocks.ETHEREAL_CHEST.get(),
+                models().getExistingFile(mcLoc("block/chest")));
     }
 
+    private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+
+    public void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {
+        ModelFile sign = models().sign(name(signBlock), texture);
+        hangingSignBlock(signBlock, wallSignBlock, sign);
+    }
+
+    public void hangingSignBlock(Block signBlock, Block wallSignBlock, ModelFile sign) {
+        simpleBlock(signBlock, sign);
+        simpleBlock(wallSignBlock, sign);
+    }
+
+    private String name(Block block) {
+        return key(block).getPath();
+    }
+
+    private ResourceLocation key(Block block) {
+        return ForgeRegistries.BLOCKS.getKey(block);
+    }
+
+    private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlockWithItem(blockRegistryObject.get(),
+                models().singleTexture(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), new ResourceLocation("minecraft:block/leaves"),
+            "all", blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+
+    private void  blockItem(RegistryObject<Block> blockRegistryObject) {
+        simpleBlockItem(blockRegistryObject.get(), new ModelFile.UncheckedModelFile(EclipseOfTheVoid.MOD_ID +
+                ":block/" + ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath()));
+    }
 
     private void customHoneyBlockModel(RegistryObject<Block> block) {
         String name = blockName(block);
