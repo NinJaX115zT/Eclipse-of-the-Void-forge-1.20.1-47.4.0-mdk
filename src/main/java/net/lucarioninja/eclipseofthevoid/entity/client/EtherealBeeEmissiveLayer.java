@@ -46,6 +46,6 @@ public class EtherealBeeEmissiveLayer extends RenderLayer<EtherealBeeEntity, Bee
 
         // Render the glow layer with dynamic brightness
         this.getParentModel().renderToBuffer(poseStack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY,
-                brightness, brightness * 0.5F, brightness, 1.0F);
+                brightness, brightness * 0.5F, brightness, 3.0F);
     }
 }

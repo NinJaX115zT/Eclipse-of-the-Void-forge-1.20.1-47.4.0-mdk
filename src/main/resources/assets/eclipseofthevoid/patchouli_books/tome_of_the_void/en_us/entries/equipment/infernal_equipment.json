@@ -1,0 +1,30 @@
+{
+  "name": "Infernal Equipment",
+  "category": "eclipseofthevoid:equipment",
+  "icon": "eclipseofthevoid:infernal_scythe",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Infernal Equipment is created by enhancing Void technology with volatile materials found in the Nether. These items burn with unstable energy and grant their wielders immense destructive potential."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_pickaxe",
+      "title": "Tools",
+      "text": "Infernal tools are capable of breaking materials that even Void tools struggle against. Their strength allows explorers to gather resources from deeper and more dangerous environments."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_scythe",
+      "title": "Scythes",
+      "text": "Infernal Scythes are feared weapons capable of devastating attacks. The intense energy infused within them makes them especially effective against powerful enemies."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_chestplate",
+      "title": "Armor",
+      "text": "Infernal Armor is built to withstand the most extreme environments. Those who wear it can endure the dangers of both the Nether and the corrupted forces of the Void."
+    }
+  ]
+}

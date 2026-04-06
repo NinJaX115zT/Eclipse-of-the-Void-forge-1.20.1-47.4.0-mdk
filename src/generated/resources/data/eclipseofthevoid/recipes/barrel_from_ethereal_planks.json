@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "eclipseofthevoid:ethereal_planks"
+    },
+    "S": {
+      "item": "eclipseofthevoid:ethereal_slab"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "P P",
+    "PSP"
+  ],
+  "result": {
+    "item": "minecraft:barrel"
+  },
+  "show_notification": true
+}

@@ -5,6 +5,7 @@ import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.block.entity.ModBlockEntities;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
 import net.lucarioninja.eclipseofthevoid.entity.client.EtherealBeeRenderer;
+//import net.lucarioninja.eclipseofthevoid.entity.client.InfernalConstructRenderer;
 import net.lucarioninja.eclipseofthevoid.entity.client.ModBoatRenderer;
 import net.lucarioninja.eclipseofthevoid.item.ModItems;
 import net.lucarioninja.eclipseofthevoid.item.VoidCreativeModeTabs;
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +38,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(EclipseOfTheVoid.MOD_ID)
 public class EclipseOfTheVoid {
     public static final String MOD_ID = "eclipseofthevoid";
@@ -67,16 +68,21 @@ public class EclipseOfTheVoid {
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
     }
+
     private void onClientSetup(FMLClientSetupEvent event) {
         LOGGER.info("Registering VoidCapeLayer...");
     }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.NEBULITE_FLOWER.getId(), ModBlocks.POTTED_NEBULITE_FLOWER);
+            ComposterBlock.COMPOSTABLES.put(ModItems.VOIDBLOSSOM_PETAL.get(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.INFERNAL_PEPPER.get(), 0.85F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.VOIDBLIGHT_BERRY.get(), 0.75F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.ETHEREAL_HONEYCOMB.get(), 1.0F);
         });
     }
 
-    // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             // Ingredient Tab
@@ -94,10 +100,10 @@ public class EclipseOfTheVoid {
             event.accept(ModItems.ETHEREAL_HONEYCOMB_CELL);
             event.accept(ModItems.ETHEREAL_HONEYCOMB);
             event.accept(ModItems.VOID_NUGGET);
-            event.accept(ModItems.VOID_INGOT);
             event.accept(ModItems.INFERNAL_NUGGET);
-            event.accept(ModItems.INFERNAL_INGOT);
             event.accept(ModItems.COSMIC_NUGGET);
+            event.accept(ModItems.VOID_INGOT);
+            event.accept(ModItems.INFERNAL_INGOT);
             event.accept(ModItems.COSMIC_INGOT);
             event.accept(ModItems.VOID_CORE);
             event.accept(ModItems.INFERNAL_CORE);
@@ -106,7 +112,6 @@ public class EclipseOfTheVoid {
             event.accept(ModItems.VOIDBLOSSOM_PETAL);
             event.accept(ModItems.INFERNALPOD_SEEDS);
         }
-
 
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             // Food Tab
@@ -138,15 +143,15 @@ public class EclipseOfTheVoid {
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             // Tools Tab (Pickaxe, Axe, Shovel)
+            event.accept(ModItems.VOID_SHOVEL);
             event.accept(ModItems.VOID_PICKAXE);
             event.accept(ModItems.VOID_AXE);
-            event.accept(ModItems.VOID_SHOVEL);
+            event.accept(ModItems.INFERNAL_SHOVEL);
             event.accept(ModItems.INFERNAL_PICKAXE);
             event.accept(ModItems.INFERNAL_AXE);
-            event.accept(ModItems.INFERNAL_SHOVEL);
+            event.accept(ModItems.COSMIC_SHOVEL);
             event.accept(ModItems.COSMIC_PICKAXE);
             event.accept(ModItems.COSMIC_AXE);
-            event.accept(ModItems.COSMIC_SHOVEL);
             event.accept(ModItems.ETHEREAL_BOAT);
             event.accept(ModItems.ETHEREAL_CHEST_BOAT);
         }
@@ -156,9 +161,13 @@ public class EclipseOfTheVoid {
             event.accept(ModBlocks.DEEPVOIDSTONE_ORE);
             event.accept(ModBlocks.INFERNAL_ORE);
             event.accept(ModBlocks.COSMIC_ORE);
+            event.accept(ModBlocks.ETHEREAL_LOG);
+            event.accept(ModBlocks.ETHEREAL_LEAVES);
+            event.accept(ModBlocks.ETHEREAL_SAPLING);
             event.accept(ModBlocks.NEBULITE_FLOWER);
             event.accept(ModBlocks.ETHEREAL_NEST);
-            event.accept(ModBlocks.ETHEREAL_SAPLING);
+            event.accept(ModBlocks.ETHEREAL_HONEYCOMB_BLOCK);
+            event.accept(ModBlocks.ETHEREAL_HONEY_BLOCK);
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -166,61 +175,67 @@ public class EclipseOfTheVoid {
             event.accept(ModBlocks.VOID_BLOCK);
             event.accept(ModBlocks.INFERNAL_BLOCK);
             event.accept(ModBlocks.COSMIC_BLOCK);
-            event.accept(ModBlocks.ETHEREAL_HONEY_BLOCK);
-            event.accept(ModBlocks.ETHEREAL_HONEYCOMB_BLOCK);
             event.accept(ModBlocks.VOID_BRICKS);
-            event.accept(ModBlocks.VOID_BRICK_WALL);
             event.accept(ModBlocks.VOID_BRICK_SLAB);
+            event.accept(ModBlocks.VOID_BRICK_WALL);
             event.accept(ModBlocks.INFERNAL_BRICKS);
-            event.accept(ModBlocks.INFERNAL_BRICK_WALL);
             event.accept(ModBlocks.INFERNAL_BRICK_SLAB);
+            event.accept(ModBlocks.INFERNAL_BRICK_WALL);
             event.accept(ModBlocks.COSMIC_BRICKS);
-            event.accept(ModBlocks.COSMIC_BRICK_WALL);
             event.accept(ModBlocks.COSMIC_BRICK_SLAB);
-            event.accept(ModBlocks.VOID_MULCHER);
+            event.accept(ModBlocks.COSMIC_BRICK_WALL);
             event.accept(ModBlocks.ETHEREAL_LOG);
             event.accept(ModBlocks.ETHEREAL_WOOD);
             event.accept(ModBlocks.STRIPPED_ETHEREAL_LOG);
             event.accept(ModBlocks.STRIPPED_ETHEREAL_WOOD);
             event.accept(ModBlocks.ETHEREAL_PLANKS);
-            event.accept(ModBlocks.ETHEREAL_SLAB);
             event.accept(ModBlocks.ETHEREAL_STAIRS);
+            event.accept(ModBlocks.ETHEREAL_SLAB);
             event.accept(ModBlocks.ETHEREAL_FENCE);
-            event.accept(ModBlocks.ETHEREAL_LEAVES);
+            event.accept(ModBlocks.ETHEREAL_FENCE_GATE);
+            event.accept(ModBlocks.ETHEREAL_DOOR);
+            event.accept(ModBlocks.ETHEREAL_TRAPDOOR);
+            event.accept(ModBlocks.ETHEREAL_PRESSURE_PLATE);
+            event.accept(ModBlocks.ETHEREAL_BUTTON);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // Functional Blocks Tab (Machines)
+            event.accept(ModBlocks.VOID_MULCHER);
+            event.accept(ModBlocks.ETHEREAL_HONEY_CAULDRON);
             event.accept(ModBlocks.ETHEREAL_NEST);
             event.accept(ModBlocks.ETHEREAL_HIVE);
-            event.accept(ModBlocks.ETHEREAL_HONEY_CAULDRON);
             event.accept(ModBlocks.ETHEREAL_SIGN);
             event.accept(ModBlocks.ETHEREAL_HANGING_SIGN);
             event.accept(ModBlocks.ETHEREAL_CHEST);
-        }
-
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            // Spawn Eggs Tab
-            event.accept(ModItems.ETHEREAL_BEE_SPAWN_EGG);
+            event.accept(ModBlocks.VOID_MULCHER);
         }
 
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             // Redstone Blocks Tab (Redstone Components)
             event.accept(ModBlocks.ETHEREAL_BUTTON);
             event.accept(ModBlocks.ETHEREAL_PRESSURE_PLATE);
+            event.accept(ModBlocks.ETHEREAL_CHEST);
+            event.accept(ModBlocks.VOID_MULCHER);
+            event.accept(ModBlocks.ETHEREAL_HONEY_CAULDRON);
+            event.accept(ModItems.ETHEREAL_CHEST_BOAT);
             event.accept(ModBlocks.ETHEREAL_DOOR);
             event.accept(ModBlocks.ETHEREAL_FENCE_GATE);
             event.accept(ModBlocks.ETHEREAL_TRAPDOOR);
         }
+
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            // Spawn Eggs Tab
+            event.accept(ModItems.ETHEREAL_BEE_SPAWN_EGG);
+            //event.accept(ModItems.INFERNAL_CONSTRUCT_SPAWN_EGG);
+        }
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
@@ -228,12 +243,12 @@ public class EclipseOfTheVoid {
             Sheets.addWoodType(ModWoodTypes.ETHEREAL);
 
             EntityRenderers.register(ModEntities.ETHEREAL_BEE.get(), EtherealBeeRenderer::new);
+            //EntityRenderers.register(ModEntities.INFERNAL_CONSTRUCT.get(), InfernalConstructRenderer::new);
             EntityRenderers.register(ModEntities.MOD_BOAT.get(), pContext -> new ModBoatRenderer(pContext, false));
             EntityRenderers.register(ModEntities.MOD_CHEST_BOAT.get(), pContext -> new ModBoatRenderer(pContext, true));
 
             event.enqueueWork(() -> {ItemBlockRenderTypes.setRenderLayer(ModBlocks.ETHEREAL_HONEY_BLOCK.get(), RenderType.translucent());
             });
-
 
             MenuScreens.register(ModMenuTypes.ETHEREAL_HIVE_MENU.get(), EtherealHiveScreen::new);
         }

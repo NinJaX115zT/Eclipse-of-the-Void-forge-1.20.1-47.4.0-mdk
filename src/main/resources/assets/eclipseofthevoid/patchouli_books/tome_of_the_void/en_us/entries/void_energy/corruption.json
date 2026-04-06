@@ -1,0 +1,12 @@
+{
+  "name": "Corruption",
+  "category": "eclipseofthevoid:void_energy",
+  "icon": "minecraft:ender_eye",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "We don't have enough info on this at this time."
+    }
+  ]
+}

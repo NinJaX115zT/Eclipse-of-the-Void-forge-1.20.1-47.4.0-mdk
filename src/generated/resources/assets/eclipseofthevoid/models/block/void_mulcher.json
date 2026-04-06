@@ -1,11 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/composter",
   "textures": {
-    "down": "eclipseofthevoid:block/void_mulcher_bottom",
-    "east": "eclipseofthevoid:block/void_mulcher_side",
-    "north": "eclipseofthevoid:block/void_mulcher_ready",
-    "south": "eclipseofthevoid:block/void_mulcher_side",
-    "up": "eclipseofthevoid:block/void_mulcher_top",
-    "west": "eclipseofthevoid:block/void_mulcher_side"
+    "bottom": "eclipseofthevoid:block/void_mulcher_bottom",
+    "inside": "eclipseofthevoid:block/void_mulcher_bottom",
+    "particle": "eclipseofthevoid:block/void_mulcher_side",
+    "side": "eclipseofthevoid:block/void_mulcher_side",
+    "top": "eclipseofthevoid:block/void_mulcher_top"
   }
 }

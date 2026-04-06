@@ -1,0 +1,35 @@
+{
+  "name": "Cores",
+  "category": "eclipseofthevoid:materials",
+  "icon": "eclipseofthevoid:void_core",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_core",
+      "title": "Void Core",
+      "text": "Now we're getting into the logistics side of this mod. These cores have a fundamental purpose, and that is to power your gear. This Void Core is a condensed power source that will power all your Void gear and some other stuff, but wait 'How do you power them?' you ask. Well that's up to the Void Energy (VE) entry to explain."
+    },
+    {
+      "type": "patchouli:text"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_core",
+      "title": "Infernal Core",
+      "text": "Welcome to the Infernal variant, bet you didn't see that one coming? You did? Oh... I must really not be that creative. Anyway, yes here's the Infernal core in all its glory. It will be a greater power source for you to have."
+    },
+    {
+      "type": "patchouli:text"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_core",
+      "title": "Cosmic Core",
+      "text": "And we have the Cosmic Core of core-se (See what I did there, no? Tough crowd...) this is the greatest power source you can get, or is it...?"
+    },
+    {
+      "type": "patchouli:text"
+    }
+  ]
+}

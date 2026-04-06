@@ -23,7 +23,6 @@ public class TomeOfTheVoidItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide) {
-            System.out.println("Right-clicked Tome of the Void");
             PatchouliAPI.get().openBookGUI(new ResourceLocation("eclipseofthevoid", "tome_of_the_void"));
         }
         return InteractionResultHolder.success(player.getItemInHand(hand));

@@ -1,0 +1,30 @@
+{
+  "name": "Cosmic Equipment",
+  "category": "eclipseofthevoid:equipment",
+  "icon": "eclipseofthevoid:cosmic_scythe",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Cosmic Equipment represents the peak of mortal craftsmanship. By combining Void and Infernal technologies with rare cosmic materials, these items achieve extraordinary power."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_pickaxe",
+      "title": "Tools",
+      "text": "Cosmic tools can harvest nearly any material encountered throughout the world. Very few substances are capable of resisting their power."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_scythe",
+      "title": "Scythes",
+      "text": "Cosmic Scythes are legendary weapons carried only by the most experienced Void Slayers. Their energy resonates with forces far beyond the mortal realm."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_chestplate",
+      "title": "Armor",
+      "text": "Cosmic Armor provides unmatched protection and stability when channeling powerful Void energies. Only those who have mastered the earlier tiers can hope to wield it effectively."
+    }
+  ]
+}

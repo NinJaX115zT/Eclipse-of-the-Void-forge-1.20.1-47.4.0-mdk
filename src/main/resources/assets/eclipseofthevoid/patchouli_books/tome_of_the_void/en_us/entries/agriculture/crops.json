@@ -1,0 +1,31 @@
+{
+  "name": "Crops",
+  "category": "eclipseofthevoid:agriculture",
+  "icon": "eclipseofthevoid:voidblossom_seeds",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Crops",
+      "text": "Crops can be obtained by trading with a Cultivator using Buried Eclipse Tokens. Once acquired, they can be grown on tilled dirt like normal crops. These crops yield unique materials used in crafting and consumables. While they grow under familiar conditions, their properties are far from ordinary."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:voidblossom_seeds",
+      "title": "Voidblossom Seeds",
+      "text": "Used to grow Voidblossom crops."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernalpod_seeds",
+      "title": "Infernalpod Seeds",
+      "text": "A more volatile crop variant with stronger outputs."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:voidblossom_petal",
+      "title": "Voidblossom Petal",
+      "text": "A harvested material used in crafting."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ethereal_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "eclipseofthevoid:ethereal_boat"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "eclipseofthevoid:ethereal_chest_boat_from_boat_and_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_ethereal_boat",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "eclipseofthevoid:ethereal_chest_boat_from_boat_and_chest"
+    ]
+  },
+  "sends_telemetry_event": false
+}

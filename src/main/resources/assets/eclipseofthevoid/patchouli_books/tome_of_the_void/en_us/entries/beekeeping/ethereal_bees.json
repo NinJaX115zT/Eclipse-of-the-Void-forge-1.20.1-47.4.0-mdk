@@ -1,0 +1,18 @@
+{
+  "name": "Ethereal Bees",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:ethereal_bee_spawn_egg",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "eclipseofthevoid:ethereal_bee",
+      "title": "Ethereal Bee",
+      "text": "Ethereal Bees are mysterious insects bound to the energy of the Void. Unlike ordinary bees, they are drawn to Nebulite Flowers and play a central role in producing honey-based resources."
+    },
+    {
+      "type": "text",
+      "text": "These bees will search for suitable flowers, gather energy, and return to their nests or hives to continue production. Be careful when disturbing them, as they do not always react kindly to aggression."
+    }
+  ]
+}

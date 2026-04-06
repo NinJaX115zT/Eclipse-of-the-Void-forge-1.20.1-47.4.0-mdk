@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:has_structure/end_city",
+  "features": "eclipseofthevoid:nebulite_flower_placed",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/composter_contents_ready",
+  "textures": {
+    "inside": "eclipseofthevoid:block/void_mulcher_ready",
+    "particle": "eclipseofthevoid:block/void_mulcher_ready"
+  }
+}

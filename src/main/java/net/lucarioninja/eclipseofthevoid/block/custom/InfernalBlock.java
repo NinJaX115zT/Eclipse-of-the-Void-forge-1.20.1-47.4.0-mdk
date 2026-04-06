@@ -41,7 +41,8 @@ public class InfernalBlock extends Block {
     @Override
     public void stepOn(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, Entity pEntity) {
         if (!pEntity.isSteppingCarefully() && pEntity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)pEntity)) {
-            pEntity.hurt(pLevel.damageSources().hotFloor(), 2.0F);
+            pEntity.hurt(pLevel.damageSources().lava(), 2.0F);
+            pEntity.hurt(pLevel.damageSources().wither(), 2.0F);
         }
 
         super.stepOn(pLevel, pPos, pState, pEntity);

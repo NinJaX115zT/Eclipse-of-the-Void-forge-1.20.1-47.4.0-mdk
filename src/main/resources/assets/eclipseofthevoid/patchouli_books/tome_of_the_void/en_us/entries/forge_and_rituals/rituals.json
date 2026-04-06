@@ -1,0 +1,12 @@
+{
+  "name": "Rituals",
+  "category": "eclipseofthevoid:forge_and_rituals",
+  "icon": "minecraft:enchanting_table",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "We don't have enough info on this at this time."
+    }
+  ]
+}

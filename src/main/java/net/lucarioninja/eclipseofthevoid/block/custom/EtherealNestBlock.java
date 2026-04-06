@@ -5,11 +5,11 @@ import net.lucarioninja.eclipseofthevoid.block.entity.ModBlockEntities;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
 import net.lucarioninja.eclipseofthevoid.entity.custom.EtherealBeeEntity;
 import net.lucarioninja.eclipseofthevoid.item.ModItems;
+import net.lucarioninja.eclipseofthevoid.particles.ModParticles;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.DustColorTransitionOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -39,9 +39,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
@@ -90,7 +89,7 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
 
                 level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.setBlock(pos, state.setValue(HONEY_LEVEL, 0), 3);
-                angerNearbyBees(level, pos, player); // Optional aggression
+                angerNearbyBees(level, pos, player);
                 return InteractionResult.SUCCESS;
             }
 
@@ -113,10 +112,8 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
             boolean hasSilkTouch = !tool.isEmpty() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) > 0;
 
             if (hasSilkTouch) {
-                // Just drop the block as-is
                 popResource(level, pos, new ItemStack(this));
             } else {
-                // Release any stored bees in the nest
                 if (be instanceof EtherealNestBlockEntity nest) {
                     List<CompoundTag> bees = nest.releaseAllBees();
                     for (CompoundTag tag : bees) {
@@ -129,8 +126,6 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
                         }
                     }
                 }
-
-                // Also spawn a few extra angry wild ones
                 spawnAngryBees(level, pos, player, 3 + level.random.nextInt(3));
                 angerNearbyBees(level, pos, player);
             }
@@ -160,23 +155,52 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (state.getValue(HONEY_LEVEL) >= 5 && random.nextFloat() < 0.3F) {
-            BlockPos below = pos.below();
-            BlockState belowState = level.getBlockState(below);
-            if (belowState.getFluidState().isEmpty()) {
-                double x = pos.getX() + 0.5 + (random.nextDouble() - 0.5);
-                double y = pos.getY() - 0.05D;
-                double z = pos.getZ() + 0.5 + (random.nextDouble() - 0.5);
-
-                DustColorTransitionOptions etherealHoneyParticle = new DustColorTransitionOptions(
-                        Vec3.fromRGB24(0x83c6f4).toVector3f(), // start color
-                        Vec3.fromRGB24(0xb2e4fc).toVector3f(), // end color
-                        1.0F
-                );
-
-                level.addParticle(etherealHoneyParticle, x, y, z, 0.0D, 0.0D, 0.0D);
-            }
+        if (random.nextInt(4) != 0) {
+            return;
         }
+
+        double[][] dripPoints = {
+                {0.22D, 0.02D, 0.22D},
+                {0.50D, 0.02D, 0.18D},
+                {0.78D, 0.02D, 0.22D},
+                {0.18D, 0.02D, 0.50D},
+                {0.82D, 0.02D, 0.50D},
+                {0.22D, 0.02D, 0.78D},
+                {0.50D, 0.02D, 0.82D},
+                {0.78D, 0.02D, 0.78D}
+        };
+
+        int dripCount = 1;
+
+        if (random.nextInt(3) == 0) {
+            dripCount++;
+        }
+
+        if (random.nextInt(5) == 0) {
+            dripCount++;
+        }
+
+        boolean[] used = new boolean[dripPoints.length];
+
+        for (int i = 0; i < dripCount; i++) {
+            int index;
+            do {
+                index = random.nextInt(dripPoints.length);
+            } while (used[index]);
+
+            used[index] = true;
+            spawnDrip(level, pos, dripPoints[index]);
+        }
+    }
+
+    private void spawnDrip(Level level, BlockPos pos, double[] point) {
+        double x = pos.getX() + point[0];
+        double y = pos.getY() + point[1];
+        double z = pos.getZ() + point[2];
+
+        level.addParticle(ModParticles.ETHEREAL_HONEY_HANG.get(),
+                x, y, z,
+                0.0D, 0.0D, 0.0D);
     }
 
     @Override
@@ -200,11 +224,15 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("An Ethereal Nest that spawns Ethereal Bees.")
-                .withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.literal("Right-click with a bottle or shears when it's full to extract a cell. Use a cauldron 1-7 blocks below to collect honey.")
-                .withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if (Screen.hasShiftDown()) {
+            pTooltip.add(Component.translatable("tooltip.eclipseofthevoid.ethereal_nest_block.tooltip.shift")
+                    .withStyle(ChatFormatting.GRAY));
+        } else {
+            pTooltip.add(Component.translatable("tooltip.eclipseofthevoid.ethereal_nest_block.tooltip")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override
@@ -213,7 +241,6 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
             if (!level.isClientSide) {
                 Player nearest = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 8, false);
 
-                // Only spawn bees if not removed by a Creative player
                 if (nearest != null && !nearest.isCreative()) {
                     BlockEntity be = level.getBlockEntity(pos);
                     if (be instanceof EtherealNestBlockEntity nest) {
@@ -223,7 +250,7 @@ public class EtherealNestBlock extends BeehiveBlock implements EntityBlock {
                             if (bee != null) {
                                 bee.load(tag);
                                 bee.moveTo(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5);
-                                bee.setTarget(nearest); // Optional: make angry, or set to null if you want passive
+                                bee.setTarget(nearest);
                                 level.addFreshEntity(bee);
                             }
                         }

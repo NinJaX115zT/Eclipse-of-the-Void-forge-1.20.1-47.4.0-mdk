@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -85,7 +87,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
             storedBees.add(storedBee);
         }
 
-        level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 0.6F);
+        level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1F, 1F);
         starterBeesInitialized = true;
         setChanged();
     }
@@ -95,21 +97,44 @@ public class EtherealNestBlockEntity extends BlockEntity {
         boolean changed = false;
 
         if (level.getGameTime() % 80 == 0 && getBeeCount() > 0) {
-            level.playSound(null, pos, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 0.15F, 1.1F);
+            level.playSound(null, pos, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 1F, 1.1F);
         }
 
         while (iterator.hasNext()) {
             StoredBee bee = iterator.next();
             bee.ticks++;
 
+            if (bee.ticks % 200 == 0 && bee.nbt.contains("Health")) {
+                float currentHealth = bee.nbt.getFloat("Health");
+                float maxHealth = 50.0F;
+
+                if (currentHealth < maxHealth) {
+                    float newHealth = Math.min(currentHealth + 1.0F, maxHealth);
+                    bee.nbt.putFloat("Health", newHealth);
+                    changed = true;
+
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                                pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D,
+                                2, 0.2D, 0.2D, 0.2D, 0.01D);
+                    }
+                }
+            }
+
             if (bee.ticks >= TICKS_IN_NEST) {
+                Vec3 safeExit = findSafeNestExit(level, pos);
+                if (safeExit == null) {
+                    continue;
+                }
+
                 EtherealBeeEntity entity = new EtherealBeeEntity(ModEntities.ETHEREAL_BEE.get(), level);
                 entity.load(bee.nbt);
                 entity.setHasNectarFlag(false);
-                entity.setPos(pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5);
-
+                entity.setPreferredNest(pos);
+                entity.setPos(safeExit.x, safeExit.y, safeExit.z);
                 level.addFreshEntity(entity);
-                level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1F, 1F);
+
                 iterator.remove();
                 changed = true;
             }
@@ -150,7 +175,7 @@ public class EtherealNestBlockEntity extends BlockEntity {
             if (filled) {
                 nestDripCooldown = DRIP_COOLDOWN_TICKS;
                 cauldronFillCooldown = CAULDRON_COOLDOWN_TICKS;
-                level.playSound(null, cauldronPos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 0.4F, 1.3F);
+                level.playSound(null, cauldronPos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1F, 1.3F);
 
                 if (level instanceof ServerLevel serverLevel) {
                     for (int i = 0; i < 3; i++) {
@@ -168,9 +193,10 @@ public class EtherealNestBlockEntity extends BlockEntity {
         if (storedBees.size() >= MAX_BEES || !bee.hasNectar()) return false;
 
         CompoundTag tag = new CompoundTag();
+        bee.setPreferredNest(worldPosition);
         bee.save(tag);
         storedBees.add(new StoredBee(tag));
-        level.playSound(null, worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(null, worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1F, 1F);
 
         combProgress += 25F;
         if (combProgress >= 100F) {
@@ -181,8 +207,6 @@ public class EtherealNestBlockEntity extends BlockEntity {
             }
             combProgress = 0F;
         }
-
-        System.out.println("Nest bee count now: " + storedBees.size());
         setChanged();
         return true;
     }
@@ -236,6 +260,40 @@ public class EtherealNestBlockEntity extends BlockEntity {
         StoredBee(CompoundTag tag) {
             this.nbt = tag;
         }
+    }
+
+    @Nullable
+    private static Vec3 findSafeNestExit(Level level, BlockPos pos) {
+        BlockPos[] candidates = new BlockPos[] {
+                pos.north(),
+                pos.south(),
+                pos.east(),
+                pos.west(),
+
+                pos.north().above(),
+                pos.south().above(),
+                pos.east().above(),
+                pos.west().above(),
+
+                pos.above(),
+                pos.above(2),
+
+                pos.north(2),
+                pos.south(2),
+                pos.east(2),
+                pos.west(2)
+        };
+
+        for (BlockPos candidate : candidates) {
+            BlockState stateHere = level.getBlockState(candidate);
+            BlockState stateAbove = level.getBlockState(candidate.above());
+
+            if (stateHere.isAir() && stateAbove.isAir()) {
+                return new Vec3(candidate.getX() + 0.5D, candidate.getY() + 0.75D, candidate.getZ() + 0.5D);
+            }
+        }
+
+        return null;
     }
 
     public int getBeeCount() {

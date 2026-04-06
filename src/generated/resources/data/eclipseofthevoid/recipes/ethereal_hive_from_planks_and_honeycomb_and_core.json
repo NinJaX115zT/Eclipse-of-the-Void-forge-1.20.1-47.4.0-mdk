@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "eclipseofthevoid:cosmic_core"
+    },
+    "H": {
+      "item": "eclipseofthevoid:ethereal_honeycomb"
+    },
+    "I": {
+      "item": "eclipseofthevoid:cosmic_ingot"
+    },
+    "P": {
+      "item": "eclipseofthevoid:ethereal_planks"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "HCH",
+    "PIP"
+  ],
+  "result": {
+    "item": "eclipseofthevoid:ethereal_hive"
+  },
+  "show_notification": true
+}

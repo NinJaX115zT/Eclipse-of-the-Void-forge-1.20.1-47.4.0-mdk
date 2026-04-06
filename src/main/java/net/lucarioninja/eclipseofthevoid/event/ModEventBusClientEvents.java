@@ -2,10 +2,8 @@ package net.lucarioninja.eclipseofthevoid.event;
 
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
 import net.lucarioninja.eclipseofthevoid.block.entity.ModBlockEntities;
-import net.lucarioninja.eclipseofthevoid.entity.client.EtherealChestRenderer;
+import net.lucarioninja.eclipseofthevoid.entity.client.*;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
-import net.lucarioninja.eclipseofthevoid.entity.client.EtherealBeeRenderer;
-import net.lucarioninja.eclipseofthevoid.entity.client.ModModelLayers;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -21,6 +19,7 @@ public class ModEventBusClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.ETHEREAL_BEE.get(), EtherealBeeRenderer::new);
+        //event.registerEntityRenderer(ModEntities.INFERNAL_CONSTRUCT.get(), InfernalConstructRenderer::new);
 
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_SIGN.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);

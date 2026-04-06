@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class CosmicOreBlock extends DropExperienceBlock {
     public CosmicOreBlock(Properties properties, UniformInt uniformInt) {
-        super(properties);
+        super(properties, uniformInt);
     }
 
     @Override

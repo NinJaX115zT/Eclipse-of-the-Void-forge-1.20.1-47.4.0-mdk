@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class InfernalOreBlock extends DropExperienceBlock {
     public InfernalOreBlock(Properties pProperties, UniformInt uniformInt) {
-        super(pProperties);
+        super(pProperties,  uniformInt);
     }
 
     @Override

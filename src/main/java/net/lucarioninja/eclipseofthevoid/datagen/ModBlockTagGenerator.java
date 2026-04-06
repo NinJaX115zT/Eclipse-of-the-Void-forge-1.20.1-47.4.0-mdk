@@ -28,12 +28,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        this.tag(ModTags.Blocks.NEEDS_VOID_TOOL)
-                .add(ModBlocks.INFERNAL_ORE.get(),
-                        ModBlocks.INFERNAL_BLOCK.get(),
-                        ModBlocks.INFERNAL_BRICKS.get(),
-                        ModBlocks.INFERNAL_BRICK_SLAB.get(),
-                        ModBlocks.INFERNAL_BRICK_WALL.get());
+        this.tag(ModTags.Blocks.NEEDS_VOID_TOOL);
 
         this.tag(ModTags.Blocks.NEEDS_INFERNAL_TOOL)
                 .add(ModBlocks.COSMIC_ORE.get(),

@@ -1,0 +1,25 @@
+{
+  "name": "Ethereal Bee Products",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:ethereal_honeycomb",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Bee Production",
+      "text": "Ethereal Bees produce several unusual materials when working within nests or hives. These resources are created as the bees gather energy from Nebulite Flowers and return it to their home. With careful management, these bees can become a reliable source of rare ingredients useful for crafting and progression."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:ethereal_honeycomb_cell",
+      "title": "Honeycomb Cell",
+      "text": "Honeycomb Cells represent a by-product of Ethereal Bees. These cells are formed in a way that isn't natural, but the bees make it happen, they are used mainly for crafting the honeycombs."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:ethereal_honeycomb",
+      "title": "Ethereal Honeycomb",
+      "text": "Honeycomb can be obtained from productive nests or hives. These wax-like structures can be formed by you the player in a crafting table"
+    }
+  ]
+}

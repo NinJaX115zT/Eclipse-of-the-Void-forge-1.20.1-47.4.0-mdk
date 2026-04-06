@@ -26,7 +26,7 @@ public class CosmicNectarItem extends Item {
     @Override
     public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, Level level, @NotNull LivingEntity entity) {
         if (!level.isClientSide) {
-            entity.playSound(SoundEvents.GENERIC_DRINK, 1.0f, 1.0f); // 👈 Plays the slurp
+            entity.playSound(SoundEvents.GENERIC_DRINK, 1.0f, 1.0f);
         }
         return super.finishUsingItem(stack, level, entity);
     }

@@ -18,7 +18,6 @@ public class EtherealHoneyBlock extends HoneyBlock {
 
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        // Don't apply fall damage at all
         entity.causeFallDamage(fallDistance, 0.0F, level.damageSources().fall());
     }
 
@@ -44,12 +43,11 @@ public class EtherealHoneyBlock extends HoneyBlock {
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (!entity.isSteppingCarefully()) {
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1.0D, 0.8D, 1.0D)); // sticky drag like honey
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(1.0D, 0.8D, 1.0D));
         }
         super.stepOn(level, pos, state, entity);
     }
 
-    // Override to allow jumping (unlike vanilla honey block)
     @Override
     public boolean isStickyBlock(BlockState state) {
         return true;

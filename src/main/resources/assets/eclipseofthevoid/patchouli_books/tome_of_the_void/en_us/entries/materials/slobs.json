@@ -1,0 +1,38 @@
+{
+  "name": "Slobs",
+  "category": "eclipseofthevoid:materials",
+  "icon": "eclipseofthevoid:void_slob",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_slob",
+      "title": "Void Slob",
+      "text": "Slobs, such a disgusting name, but that's what the void called them. They are a mangled mass of Shards plus Essence, they are the heart of making precious ingots, this one makes a Void Ingot a material that is made by smelting them in a furnace or blast furnace."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Be careful though, these Slobs are unstable and should not be carried for long. So it's best to either smelt them quickly, or store them safely inside a chest/container so they don't start killing you."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_slob",
+      "title": "Infernal Slob",
+      "text": "Like the previous one, this is a mangled mass of Shards plus Essence, this one makes Infernal ingots, a material of which are made by smelting them in a furnace or blast furnace."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Be careful though, these Slobs are unstable and should not be carried for long. So it's best to either smelt them quickly, or store them safely inside a chest/container so they don't start killing you."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_slob",
+      "title": "Cosmic Slob",
+      "text": "Like the previous one, this is a mangled mass of Shards plus Essence, this one makes Cosmic ingots, a final tier material of which are made by smelting them in a furnace or blast furnace."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Be careful though, these Slobs are unstable and should not be carried for long. So it's best to either smelt them quickly, or store them safely inside a chest/container so they don't start killing you."
+    }
+  ]
+}

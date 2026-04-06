@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "eclipseofthevoid:block/stripped_ethereal_log",
+    "side": "eclipseofthevoid:block/stripped_ethereal_log"
+  }
+}

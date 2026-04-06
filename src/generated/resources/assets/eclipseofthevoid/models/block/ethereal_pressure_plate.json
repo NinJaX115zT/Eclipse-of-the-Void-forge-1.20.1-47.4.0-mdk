@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "eclipseofthevoid:block/ethereal_planks"
+  }
+}

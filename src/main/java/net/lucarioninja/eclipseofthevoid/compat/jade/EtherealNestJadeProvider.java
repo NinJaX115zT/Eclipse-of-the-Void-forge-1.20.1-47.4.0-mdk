@@ -38,6 +38,6 @@ public enum EtherealNestJadeProvider implements IBlockComponentProvider, IServer
 
     @Override
     public ResourceLocation getUid() {
-        return EOTVJadePlugin.ETHEREAL_NEST_UID;
+        return ModJadePlugin.ETHEREAL_NEST_UID;
     }
 }

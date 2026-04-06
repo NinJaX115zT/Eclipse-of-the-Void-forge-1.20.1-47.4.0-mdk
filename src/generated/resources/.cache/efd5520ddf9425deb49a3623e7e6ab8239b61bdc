@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-11T08:01:45.8323202	Item Models: eclipseofthevoid
+// 1.20.1	2026-03-22T21:09:11.5711366	Item Models: eclipseofthevoid
 927c237758631ec19bd403c14983496a27137145 assets/eclipseofthevoid/models/item/buried_eclipse_token.json
 dbf8d144d890b588edf2a6a8f4c2efa4542ce891 assets/eclipseofthevoid/models/item/cosmic_axe.json
 3724c680c84dd6599f63b2e8b027f014d100406b assets/eclipseofthevoid/models/item/cosmic_boots.json
@@ -107,6 +107,7 @@ fd4bde7b5b09deb9e6b4539168bc4db2e51842c8 assets/eclipseofthevoid/models/item/inf
 49fb466aca6dd36bb9e52e5c50e0ca7f484f1321 assets/eclipseofthevoid/models/item/infernal_chestplate_netherite_trim.json
 ffa1025c29c09a04c99673567c5be8d4d1c4cb15 assets/eclipseofthevoid/models/item/infernal_chestplate_quartz_trim.json
 69131c683e79720cefeb462a8227453bf8ddc2f9 assets/eclipseofthevoid/models/item/infernal_chestplate_redstone_trim.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/eclipseofthevoid/models/item/infernal_construct_spawn_egg.json
 7d3c31840eb64bd27f350cda3fcdbea2a9dc97bb assets/eclipseofthevoid/models/item/infernal_core.json
 ca3a92b72f05b5f0d1591b42e91be334d2d4c7b0 assets/eclipseofthevoid/models/item/infernal_essence.json
 30a89d4e637832198e850d36e3238c26287da5d9 assets/eclipseofthevoid/models/item/infernal_helmet.json

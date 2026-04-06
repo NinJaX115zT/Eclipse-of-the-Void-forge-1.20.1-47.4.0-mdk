@@ -1,0 +1,43 @@
+{
+  "name": "Consumables",
+  "category": "eclipseofthevoid:agriculture",
+  "icon": "eclipseofthevoid:voidblight_berry",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Consumables",
+      "text": "From crops and creatures alike, the Void provides a variety of consumables. These items restore hunger and grant effects, though many carry unusual properties."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:voidblight_berry",
+      "title": "Voidblight Berry",
+      "text": "A corrupted fruit grown from Void crops. Restores hunger, though its effects may not be entirely safe."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_pepper",
+      "title": "Infernal Pepper",
+      "text": "A sharp and volatile ingredient. Provides stronger effects when consumed."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_jerky",
+      "title": "Infernal Jerky",
+      "text": "Dried meat infused with Infernal energy. A reliable and potent food source."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:ethereal_honey_bottle",
+      "title": "Ethereal Honey Bottle",
+      "text": "Honey Bottles can be collected from Ethereal Honey Cauldrons or nests once enough nectar has accumulated. This strange liquid contains concentrated energy gathered by Ethereal Bees."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_nectar",
+      "title": "Cosmic Nectar",
+      "text": "An extremely powerful consumable. Grants multiple high-tier effects, but overwhelms the body."
+    }
+  ]
+}

@@ -2,9 +2,11 @@ package net.lucarioninja.eclipseofthevoid.item.custom;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.Nullable;
 
 public class FuelItem extends Item {
-    private final int burnTime;
+    private int burnTime = 0;
 
     public FuelItem(Properties properties, int burnTime) {
         super(properties);
@@ -12,7 +14,7 @@ public class FuelItem extends Item {
     }
 
     @Override
-    public int getBurnTime(ItemStack itemStack, net.minecraft.world.item.crafting.RecipeType<?> recipeType) {
+    public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
         return burnTime;
     }
 }

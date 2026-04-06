@@ -19,9 +19,9 @@ public class ModToolTiers {
     public static final Tier INFERNAL = TierSortingRegistry.registerTier(
             new ForgeTier(6, 2700, 13,9.0F, 25,
                     ModTags.Blocks.NEEDS_INFERNAL_TOOL, () -> Ingredient.of(ModItems.INFERNAL_INGOT.get())),
-            new ResourceLocation(EclipseOfTheVoid.MOD_ID, "infernal"), List.of(Tiers.NETHERITE), List.of());
+            new ResourceLocation(EclipseOfTheVoid.MOD_ID, "infernal"), List.of(Tiers.NETHERITE, ModToolTiers.VOID), List.of());
     public static final Tier COSMIC = TierSortingRegistry.registerTier(
             new ForgeTier(8, 4000, 18,14, 35,
                     ModTags.Blocks.NEEDS_COSMIC_TOOL, () -> Ingredient.of(ModItems.COSMIC_INGOT.get())),
-            new ResourceLocation(EclipseOfTheVoid.MOD_ID, "cosmic"), List.of(Tiers.NETHERITE), List.of());
+            new ResourceLocation(EclipseOfTheVoid.MOD_ID, "cosmic"), List.of(ModToolTiers.INFERNAL), List.of());
 }

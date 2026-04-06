@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "eclipseofthevoid:ethereal_honey_bottle"
+    },
+    "C": {
+      "item": "minecraft:chorus_fruit"
+    },
+    "E": {
+      "item": "eclipseofthevoid:cosmic_essence"
+    },
+    "H": {
+      "item": "eclipseofthevoid:ethereal_honeycomb"
+    }
+  },
+  "pattern": [
+    "HBH",
+    "CEC",
+    "HBH"
+  ],
+  "result": {
+    "count": 2,
+    "item": "eclipseofthevoid:cosmic_nectar"
+  },
+  "show_notification": true
+}

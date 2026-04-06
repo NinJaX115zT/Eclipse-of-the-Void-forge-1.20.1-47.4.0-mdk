@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -85,18 +86,40 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
             StoredBee stored = iterator.next();
             stored.ticksInHive++;
 
+            if (stored.ticksInHive % 200 == 0 && stored.tag.contains("Health")) {
+                float currentHealth = stored.tag.getFloat("Health");
+                float maxHealth = 10.0F;
+
+                if (currentHealth < maxHealth) {
+                    float newHealth = Math.min(currentHealth + 1.0F, maxHealth);
+                    stored.tag.putFloat("Health", newHealth);
+                    changed = true;
+
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                                pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D,
+                                2, 0.2D, 0.2D, 0.2D, 0.01D);
+                    }
+                }
+            }
+
             // Bee leaves after 1:30 min cap
             if (stored.ticksInHive >= 3000) {
+                Vec3 safeExit = findSafeHiveExit(level, pos, state);
+                if (safeExit == null) {
+                    continue; // blocked, try again next tick cycle
+                }
+
                 EtherealBeeEntity newBee = new EtherealBeeEntity(ModEntities.ETHEREAL_BEE.get(), level);
                 newBee.load(stored.tag);
-                newBee.setHasNectarFlag(false); // clear nectar
-
-                newBee.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+                newBee.setHasNectarFlag(false);
+                newBee.setHivePos(pos);              // sets both hivePos and preferred home now
+                newBee.setPreferredHome(pos, true);  // explicit, just to be safe
+                newBee.setPos(safeExit.x, safeExit.y, safeExit.z);
                 newBee.onExitHive();
                 level.addFreshEntity(newBee);
+
                 level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0f, 1.0f);
-
-
                 iterator.remove();
                 changed = true;
             }
@@ -120,8 +143,8 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
             }
 
             // Always play sound/particles when a Cell is produced
-            level.playSound(null, pos, SoundEvents.BEEHIVE_SHEAR, SoundSource.BLOCKS, 0.6f, 1.0f);
-            level.playSound(null, pos, SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.BLOCKS, 0.4f, 1.4f);
+            level.playSound(null, pos, SoundEvents.BEEHIVE_SHEAR, SoundSource.BLOCKS, 1f, 1f);
+            level.playSound(null, pos, SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.BLOCKS, 1f, 1.4f);
 
             if (level instanceof ServerLevel serverLevel) {
                 serverLevel.sendParticles(ParticleTypes.END_ROD,
@@ -148,17 +171,17 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
 
         // Play work sound every 2s if bees are inside
         if (!hive.storedBees.isEmpty() && level.getGameTime() % 40 == 0) {
-            level.playSound(null, pos, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 0.3f, 1.0f);
+            level.playSound(null, pos, SoundEvents.BEEHIVE_WORK, SoundSource.BLOCKS, 1f, 1.0f);
         }
 
         if (changed) hive.setChanged();
     }
 
-
-
     public void addBee(EtherealBeeEntity bee) {
         if (bee.hasNectar()) {
             CompoundTag tag = new CompoundTag();
+            bee.setHivePos(worldPosition);
+            bee.setPreferredHome(worldPosition, true);
             bee.save(tag);
             storedBees.add(new StoredBee(tag));
             combProgress += 10;
@@ -169,7 +192,6 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
             }
         }
     }
-
 
     private final SimpleContainerData data = new SimpleContainerData(2) {
         @Override
@@ -261,6 +283,46 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
         showNectarFront = tag.getBoolean("show_nectar_front");
     }
 
+    @Nullable
+    private static Vec3 findSafeHiveExit(Level level, BlockPos pos, BlockState state) {
+        Direction facing = state.getOptionalValue(EtherealHiveBlock.FACING).orElse(Direction.NORTH);
+
+        BlockPos front = pos.relative(facing);
+        BlockPos left = pos.relative(facing.getClockWise());
+        BlockPos right = pos.relative(facing.getCounterClockWise());
+        BlockPos back = pos.relative(facing.getOpposite());
+
+        BlockPos[] candidates = new BlockPos[] {
+                front,
+                left,
+                right,
+                back,
+
+                front.above(),
+                left.above(),
+                right.above(),
+                back.above(),
+
+                pos.above(),
+                pos.above(2),
+
+                front.relative(facing),
+                left.relative(facing.getClockWise()),
+                right.relative(facing.getCounterClockWise())
+        };
+
+        for (BlockPos candidate : candidates) {
+            BlockState stateHere = level.getBlockState(candidate);
+            BlockState stateAbove = level.getBlockState(candidate.above());
+
+            if (stateHere.isAir() && stateAbove.isAir()) {
+                return new Vec3(candidate.getX() + 0.5D, candidate.getY() + 0.75D, candidate.getZ() + 0.5D);
+            }
+        }
+
+        return null;
+    }
+
     public ItemStackHandler getItemHandler() {
         return itemHandler;
     }
@@ -273,10 +335,16 @@ public class EtherealHiveBlockEntity extends BlockEntity implements MenuProvider
             bee.load(stored.tag);
             bee.setHasNectarFlag(false);
 
-            bee.setPos(worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5);
+            Vec3 safeExit = findSafeHiveExit(level, worldPosition, getBlockState());
+            if (safeExit == null) {
+                safeExit = new Vec3(worldPosition.getX() + 0.5D, worldPosition.getY() + 1.5D, worldPosition.getZ() + 0.5D);
+            }
+
+            bee.setHivePos(worldPosition);
+            bee.setPreferredHome(worldPosition, true);
+            bee.setPos(safeExit.x, safeExit.y, safeExit.z);
             bee.onExitHive();
             bee.setTarget(player);
-
             level.addFreshEntity(bee);
         }
     }

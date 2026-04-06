@@ -1,0 +1,30 @@
+{
+  "name": "Void Equipment",
+  "category": "eclipseofthevoid:equipment",
+  "icon": "eclipseofthevoid:void_scythe",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Void Equipment represents the first step beyond conventional tools. Forged from Void Ingots and infused with essence extracted from creatures touched by the Void, these items surpass even Netherite in strength. Those who wield Void Equipment begin to harness the unstable power of the Void itself."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_pickaxe",
+      "title": "Tools",
+      "text": "Void tools allow you to mine materials that ordinary tools cannot handle. Many blocks infused with Void energy will reject weaker tools entirely. When this happens, you may see a warning stating that your tool is unworthy. This is your sign that stronger equipment is required."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_scythe",
+      "title": "Scythes",
+      "text": "Among the most feared weapons of the Void are the Scythes. These weapons are designed for aggressive combat and allow skilled warriors to strike swiftly and relentlessly. Those who master the scythe become deadly Void hunters."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_chestplate",
+      "title": "Armor",
+      "text": "Void Armor provides powerful protection while allowing the wearer to channel Void energy safely. Many explorers consider this the true beginning of their journey into the unknown."
+    }
+  ]
+}

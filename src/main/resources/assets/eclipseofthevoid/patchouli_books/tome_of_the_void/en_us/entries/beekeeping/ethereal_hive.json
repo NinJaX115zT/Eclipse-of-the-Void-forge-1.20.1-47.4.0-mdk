@@ -1,0 +1,18 @@
+{
+  "name": "Ethereal Hive",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:ethereal_hive",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:ethereal_hive",
+      "title": "Ethereal Hive",
+      "text": "The Ethereal Hive is an advanced, player-made alternative to the natural nest. It is designed to house multiple Ethereal Bees and improve production efficiency. Compared to a nest, the hive offers a more controlled and reliable way to manage bee production. With enough bees inside, progress becomes faster and more rewarding."
+    },
+    {
+      "type": "text",
+      "text": "Those who invest in proper hive management will gain a steady supply of rare honeycomb and nectar-related resources needed for deeper progression."
+    }
+  ]
+}

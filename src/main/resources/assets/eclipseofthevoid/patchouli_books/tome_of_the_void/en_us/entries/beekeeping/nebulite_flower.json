@@ -1,0 +1,17 @@
+{
+  "name": "Nebulite Flower",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:nebulite_flower",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:nebulite_flower",
+      "text": "The Nebulite Flower is a strange plant in the End tied closely to Ethereal Bees. Its unusual energy attracts them, making it an important part of nectar production."
+    },
+    {
+      "type": "text",
+      "text": "When Ethereal Bees find these flowers, they may begin pollinating them and gathering the energy needed to produce Ethereal nectar. Without Nebulite Flowers, their production chain cannot properly begin."
+    }
+  ]
+}

@@ -113,10 +113,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         withExistingParent(ModBlocks.COSMIC_BRICKS.getId().getPath(), modLoc("block/cosmic_bricks"));
         wallItem(ModBlocks.COSMIC_BRICK_WALL, ModBlocks.COSMIC_BRICKS);
         withExistingParent(ModBlocks.COSMIC_BRICK_SLAB.getId().getPath(), modLoc("block/cosmic_brick_slab"));
-        simpleBlockItem(ModBlocks.VOID_MULCHER);
+        withExistingParent("void_mulcher", modLoc("block/void_mulcher"));
         simpleBlockItem(ModBlocks.ETHEREAL_HONEYCOMB_BLOCK);
         simpleBlockItemBlockTexture(ModBlocks.NEBULITE_FLOWER);
         withExistingParent(ModItems.ETHEREAL_BEE_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+        //withExistingParent(ModItems.INFERNAL_CONSTRUCT_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         withExistingParent(ModBlocks.ETHEREAL_NEST.getId().getPath(),
                 modLoc("block/ethereal_nest_empty"));
         withExistingParent(ModBlocks.ETHEREAL_HIVE.getId().getPath(),
@@ -190,16 +191,6 @@ public class ModItemModelProvider extends ItemModelProvider {
                                         "item/" + itemRegistryObject.getId().getPath()));
             });
         }
-    }
-
-    public void evenSimplerBlockItem(RegistryObject<Block> block) {
-        this.withExistingParent(EclipseOfTheVoid.MOD_ID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
-                mcLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
-    }
-
-    public void trapdoorItem(RegistryObject<Block> block) {
-        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
-                mcLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath() + "_bottom"));
     }
 
     public void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {

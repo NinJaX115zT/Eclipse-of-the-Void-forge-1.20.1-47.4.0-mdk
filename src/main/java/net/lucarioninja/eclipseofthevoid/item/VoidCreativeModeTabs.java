@@ -55,18 +55,18 @@ public class VoidCreativeModeTabs {
                         output.accept(ModItems.COSMIC_NECTAR.get());
 
                         // Adds tools items to the tab
-                        output.accept(ModItems.VOID_SCYTHE.get());
+                        output.accept(ModItems.VOID_SHOVEL.get());
                         output.accept(ModItems.VOID_PICKAXE.get());
                         output.accept(ModItems.VOID_AXE.get());
-                        output.accept(ModItems.VOID_SHOVEL.get());
-                        output.accept(ModItems.INFERNAL_SCYTHE.get());
+                        output.accept(ModItems.INFERNAL_SHOVEL.get());
                         output.accept(ModItems.INFERNAL_PICKAXE.get());
                         output.accept(ModItems.INFERNAL_AXE.get());
-                        output.accept(ModItems.INFERNAL_SHOVEL.get());
-                        output.accept(ModItems.COSMIC_SCYTHE.get());
+                        output.accept(ModItems.COSMIC_SHOVEL.get());
                         output.accept(ModItems.COSMIC_PICKAXE.get());
                         output.accept(ModItems.COSMIC_AXE.get());
-                        output.accept(ModItems.COSMIC_SHOVEL.get());
+                        output.accept(ModItems.VOID_SCYTHE.get());
+                        output.accept(ModItems.INFERNAL_SCYTHE.get());
+                        output.accept(ModItems.COSMIC_SCYTHE.get());
 
                         // Adds armor items to the tab
                         output.accept(ModItems.VOID_HELMET.get());
@@ -93,14 +93,14 @@ public class VoidCreativeModeTabs {
                         output.accept(ModBlocks.ETHEREAL_HONEY_BLOCK.get());
                         output.accept(ModBlocks.ETHEREAL_HONEYCOMB_BLOCK.get());
                         output.accept(ModBlocks.VOID_BRICKS.get());
-                        output.accept(ModBlocks.VOID_BRICK_WALL.get());
                         output.accept(ModBlocks.VOID_BRICK_SLAB.get());
+                        output.accept(ModBlocks.VOID_BRICK_WALL.get());
                         output.accept(ModBlocks.INFERNAL_BRICKS.get());
-                        output.accept(ModBlocks.INFERNAL_BRICK_WALL.get());
                         output.accept(ModBlocks.INFERNAL_BRICK_SLAB.get());
+                        output.accept(ModBlocks.INFERNAL_BRICK_WALL.get());
                         output.accept(ModBlocks.COSMIC_BRICKS.get());
-                        output.accept(ModBlocks.COSMIC_BRICK_WALL.get());
                         output.accept(ModBlocks.COSMIC_BRICK_SLAB.get());
+                        output.accept(ModBlocks.COSMIC_BRICK_WALL.get());
                         output.accept(ModBlocks.VOID_MULCHER.get());
                         output.accept(ModBlocks.NEBULITE_FLOWER.get());
                         output.accept(ModBlocks.ETHEREAL_NEST.get());
@@ -127,7 +127,7 @@ public class VoidCreativeModeTabs {
 
                         // Adds Spawn Eggs to the tab
                         output.accept(ModItems.ETHEREAL_BEE_SPAWN_EGG.get());
-
+                        //output.accept(ModItems.INFERNAL_CONSTRUCT_SPAWN_EGG.get());
                     })
                     .build());
 

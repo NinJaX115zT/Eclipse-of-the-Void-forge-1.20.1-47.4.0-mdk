@@ -1,0 +1,38 @@
+{
+  "name": "Shards",
+  "category": "eclipseofthevoid:materials",
+  "icon": "eclipseofthevoid:voidstone_shard",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:voidstone_shard",
+      "title": "Voidstone Shards",
+      "text": "Are you wondering what Voidstone Shards are? Well you might be saved, these little things are bits of ore fragments that the Void has seeped into the Overworld, leaving fragments of its power behind. If you want to obtain these Shards you have to go looking underground."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Since the Void has seeped through to the Overworld to create these new ores, they have energy in them waiting to be let out. These shards can be combined with Essence to create unstable items known as Slobs (see Slobs entry for more info) that's when it gets a bit dangerous."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_shard",
+      "title": "Infernal Shards",
+      "text": "Well, what do we have here? Seeing as though you know all about Void Shards now, why don't I tell you about it's Nether-y brethren. These ones are bits of ore fragments that the void has designated to be in the Nether. If you want to obtain these Shards you have to go looking underground, you also might wanna bring some fire resistant items just in case. You don't wanna lose them do you?"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Anyway, since the Void has seeped through to the Nether to create these new ores, they have energy in them waiting to be let out. These shards can be combined with Essence to create unstable items known as Slobs (see Slobs entry for more info) that's when it gets a bit dangerous."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_shard",
+      "title": "Cosmic Shards",
+      "text": "Are you getting bored now? Tired of seeing shard entries? Well this is the last entry about them. Given your expert knowledge on the previous Shards, why don't I tell you a bit about the End version. These ones are rare ore fragments that the void has seeped into the End as well. If you want to obtain these Shards you have to go looking through the islands, who knows what you'll find out there as well."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "You know the drill by now, blah blah blah, seeped through to the End, blah blah blah, crafted into Slobs (see Slobs entry for more info) blah blah blah, dangerous. Aaaannd that's it! You know all about Shards!"
+    }
+  ]
+}

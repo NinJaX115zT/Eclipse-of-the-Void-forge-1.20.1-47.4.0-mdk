@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "C": {
+      "item": "minecraft:cooked_porkchop"
+    },
+    "E": {
+      "item": "eclipseofthevoid:infernal_essence"
+    },
+    "P": {
+      "item": "eclipseofthevoid:infernal_pepper"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "PEP",
+    "PCP"
+  ],
+  "result": {
+    "count": 2,
+    "item": "eclipseofthevoid:infernal_jerky"
+  },
+  "show_notification": true
+}

@@ -17,16 +17,18 @@ public class InfernalJerkyItem extends Item {
     public InfernalJerkyItem(Properties properties) {
         super(properties);
     }
+
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        if (!level.isClientSide && entity instanceof Player player) {
+            player.setSecondsOnFire(12); // longer fire sizzle after eating, more than pepper
+        }
+        return super.finishUsingItem(stack, level, entity);
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.literal("Spicy with a hint of damnation")
                 .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
-    }
-    @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        if (!level.isClientSide && entity instanceof Player player) {
-            player.setSecondsOnFire(1); // brief fire sizzle after eating
-        }
-        return super.finishUsingItem(stack, level, entity);
     }
 }

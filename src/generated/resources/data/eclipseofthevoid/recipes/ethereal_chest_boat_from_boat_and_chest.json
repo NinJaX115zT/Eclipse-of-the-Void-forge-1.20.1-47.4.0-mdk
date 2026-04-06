@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "eclipseofthevoid:ethereal_boat"
+    },
+    "C": {
+      "item": "eclipseofthevoid:ethereal_chest"
+    }
+  },
+  "pattern": [
+    "CB"
+  ],
+  "result": {
+    "item": "eclipseofthevoid:ethereal_chest_boat"
+  },
+  "show_notification": true
+}

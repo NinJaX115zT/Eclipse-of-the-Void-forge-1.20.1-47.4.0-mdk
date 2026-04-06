@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "eclipseofthevoid:infernal_essence"
+    },
+    "S": {
+      "item": "eclipseofthevoid:infernal_shard"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SES",
+    " S "
+  ],
+  "result": {
+    "item": "eclipseofthevoid:infernal_slob"
+  },
+  "show_notification": true
+}

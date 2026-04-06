@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": {
+      "item": "eclipseofthevoid:ethereal_planks"
+    }
+  },
+  "pattern": [
+    "PP"
+  ],
+  "result": {
+    "item": "eclipseofthevoid:ethereal_pressure_plate"
+  },
+  "show_notification": true
+}

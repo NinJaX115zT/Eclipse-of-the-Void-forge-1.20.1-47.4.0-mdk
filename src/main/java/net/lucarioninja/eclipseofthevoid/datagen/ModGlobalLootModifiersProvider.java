@@ -103,21 +103,17 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
         }, ModItems.COSMIC_INGOT.get()));
 
         // === SUS SAND DROPS ===
-        // VOID NUGGET from suspicious sand (common)
         add("void_nugget_from_sus_sand", new AddSusSandItemModifier(new LootItemCondition[]{
-                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build() // 25% chance
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()
         }, ModItems.VOID_NUGGET.get()));
-        // INFERNAL NUGGET from suspicious sand (less common)
         add("infernal_nugget_from_sus_sand", new AddSusSandItemModifier(new LootItemCondition[]{
-                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()// 15% chance
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()
         }, ModItems.INFERNAL_NUGGET.get()));
-        // COSMIC NUGGET from suspicious sand (rare)
         add("cosmic_nugget_from_sus_sand", new AddSusSandItemModifier(new LootItemCondition[]{
-                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build() // 8% chance
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()
         }, ModItems.COSMIC_NUGGET.get()));
-        // BURIED ECLIPSE TOKEN from suspicious sand (ultra rare)
         add("buried_eclipse_token_from_sus_sand", new AddSusSandItemModifier(new LootItemCondition[]{
-                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()// 4% chance
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()
         }, ModItems.BURIED_ECLIPSE_TOKEN.get()));
 
         // === BLOCK DROPS ===

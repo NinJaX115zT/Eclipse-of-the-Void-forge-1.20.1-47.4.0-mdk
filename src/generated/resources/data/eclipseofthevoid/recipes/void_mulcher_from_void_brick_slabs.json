@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "eclipseofthevoid:void_brick_slab"
+    }
+  },
+  "pattern": [
+    "S S",
+    "S S",
+    "SSS"
+  ],
+  "result": {
+    "item": "eclipseofthevoid:void_mulcher"
+  },
+  "show_notification": true
+}

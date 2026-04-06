@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class VoidstoneOreBlock extends DropExperienceBlock {
     public VoidstoneOreBlock(Properties pProperties, UniformInt uniformInt) {
-        super(pProperties);
+        super(pProperties,  uniformInt);
     }
 
     @Override

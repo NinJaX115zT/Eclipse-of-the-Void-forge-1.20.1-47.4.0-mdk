@@ -20,7 +20,7 @@ public class InfernalPepperItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (!level.isClientSide && entity instanceof Player player) {
-            player.setSecondsOnFire(3); // Set player on fire for 3 seconds
+            player.setSecondsOnFire(4); // short fire sizzle after eating, less than jerky but still spicy
         }
 
         return super.finishUsingItem(stack, level, entity);

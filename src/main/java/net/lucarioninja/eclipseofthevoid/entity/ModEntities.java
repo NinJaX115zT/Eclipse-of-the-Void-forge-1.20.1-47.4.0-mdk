@@ -2,6 +2,7 @@ package net.lucarioninja.eclipseofthevoid.entity;
 
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
 import net.lucarioninja.eclipseofthevoid.entity.custom.EtherealBeeEntity;
+//import net.lucarioninja.eclipseofthevoid.entity.custom.InfernalConstructEntity;
 import net.lucarioninja.eclipseofthevoid.entity.custom.ModBoatEntity;
 import net.lucarioninja.eclipseofthevoid.entity.custom.ModChestBoatEntity;
 import net.minecraft.resources.ResourceLocation;
@@ -16,11 +17,17 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, EclipseOfTheVoid.MOD_ID);
 
+    // Mobs
     public static final RegistryObject<EntityType<EtherealBeeEntity>> ETHEREAL_BEE =
             ENTITY_TYPES.register("ethereal_bee", () -> EntityType.Builder
-                    .of(EtherealBeeEntity::new, MobCategory.CREATURE).sized(1.0f, 1.1f)
+                    .of(EtherealBeeEntity::new, MobCategory.CREATURE).sized(1.1f, 1.0f).clientTrackingRange(8)
                     .build(new ResourceLocation(EclipseOfTheVoid.MOD_ID, "ethereal_bee").toString()));
+    /*public static final RegistryObject<EntityType<InfernalConstructEntity>> INFERNAL_CONSTRUCT =
+            ENTITY_TYPES.register("infernal_construct", () -> EntityType.Builder
+                    .of(InfernalConstructEntity::new, MobCategory.MISC).sized(1.4F, 2.7F).clientTrackingRange(10)
+                    .build(new ResourceLocation(EclipseOfTheVoid.MOD_ID, "infernal_construct").toString()));*/
 
+    // Boats
     public static final RegistryObject<EntityType<ModBoatEntity>> MOD_BOAT =
             ENTITY_TYPES.register("mod_boat", () -> EntityType.Builder.<ModBoatEntity>of(ModBoatEntity::new, MobCategory.MISC)
                     .sized(1.375f, 0.5625f).build("mod_boat"));

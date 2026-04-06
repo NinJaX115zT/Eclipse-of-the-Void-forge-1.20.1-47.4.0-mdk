@@ -14,9 +14,13 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
+
+import java.util.UUID;
 
 public class VoidCapeRenderer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
@@ -26,7 +30,6 @@ public class VoidCapeRenderer extends RenderLayer<AbstractClientPlayer, PlayerMo
     public VoidCapeRenderer(PlayerRenderer renderer) {
         super(renderer);
 
-        // Build the mesh for the cape
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition root = meshDefinition.getRoot();
         root.addOrReplaceChild("cape",
@@ -43,9 +46,14 @@ public class VoidCapeRenderer extends RenderLayer<AbstractClientPlayer, PlayerMo
     public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, AbstractClientPlayer player,
                        float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 
+        UUID uuid = player.getUUID();
+
         if (!player.isInvisible()
-                && player.getUUID().toString().equals("380df991-f603-344c-a090-369bad2a924a")
-                && player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).getItem() != net.minecraft.world.item.Items.ELYTRA) {
+                && (
+                uuid.equals(UUID.fromString("380df991-f603-344c-a090-369bad2a924a")) ||
+                        uuid.equals(UUID.fromString("7119030b-e013-4b52-8d81-8955c0ab59f0"))
+        )
+                && player.getItemBySlot(EquipmentSlot.CHEST).getItem() != Items.ELYTRA) {
 
             poseStack.pushPose();
 

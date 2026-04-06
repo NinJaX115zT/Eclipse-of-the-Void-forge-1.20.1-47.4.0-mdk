@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/chest",
+  "textures": {
+    "particle": "eclipseofthevoid:block/ethereal_planks"
+  }
+}

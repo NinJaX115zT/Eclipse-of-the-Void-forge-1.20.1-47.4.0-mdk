@@ -1,0 +1,17 @@
+{
+  "name": "Tokens & Villagers",
+  "category": "eclipseofthevoid:getting_started",
+  "icon": "eclipseofthevoid:buried_eclipse_token",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Eclipse Tokens",
+      "text": "Eclipse Tokens are rare relics hidden within desert pyramids. Search the suspicious sand and use a brush to carefully uncover them. These mysterious tokens are said to contain fragments of ancient Void energy. Some believe they once served as catalysts for lost Void technologies from a forgotten age. Whatever their origin, these relics are incredibly valuable. Use them wisely, as they are essential for progressing deeper into the mysteries of the Void."
+    },
+    {
+      "type": "text",
+      "text": "Eclipse Tokens can be traded with a special villager profession to unlock crops, seeds, and rare resources. By cultivating the crops obtained through these trades and returning their harvest to the villagers, you can earn additional tokens and expand your influence over Void energy. Those who master this system will gain access to powerful resources unavailable anywhere else."
+    }
+  ]
+}

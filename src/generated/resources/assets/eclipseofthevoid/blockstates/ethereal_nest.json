@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "facing=east,generated=false,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=false,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=false,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=false,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=false,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=false,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 270
+    },
+    "facing=east,generated=true,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 270
+    },
+    "facing=north,generated=false,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=false,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=false,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=false,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=false,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=false,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 180
+    },
+    "facing=north,generated=true,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 180
+    },
+    "facing=south,generated=false,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=false,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=false,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=false,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=false,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=false,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar"
+    },
+    "facing=south,generated=true,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=true,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=true,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=true,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=true,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty"
+    },
+    "facing=south,generated=true,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar"
+    },
+    "facing=west,generated=false,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=false,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=false,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=false,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=false,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=false,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=0": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=1": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=2": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=3": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=4": {
+      "model": "eclipseofthevoid:block/ethereal_nest_empty",
+      "y": 90
+    },
+    "facing=west,generated=true,honey_level=5": {
+      "model": "eclipseofthevoid:block/ethereal_nest_nectar",
+      "y": 90
+    }
+  }
+}

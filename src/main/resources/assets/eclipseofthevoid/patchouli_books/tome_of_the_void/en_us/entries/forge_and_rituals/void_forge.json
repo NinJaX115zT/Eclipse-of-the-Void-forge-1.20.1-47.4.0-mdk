@@ -1,0 +1,12 @@
+{
+  "name": "Void Forge",
+  "category": "eclipseofthevoid:forge_and_rituals",
+  "icon": "minecraft:furnace",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "We don't have enough info on this at this time."
+    }
+  ]
+}

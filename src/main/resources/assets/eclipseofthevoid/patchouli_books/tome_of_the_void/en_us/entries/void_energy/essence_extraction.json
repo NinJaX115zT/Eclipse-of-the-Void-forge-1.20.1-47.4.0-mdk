@@ -1,0 +1,12 @@
+{
+  "name": "Essence Extraction",
+  "category": "eclipseofthevoid:void_energy",
+  "icon": "minecraft:trident",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "We don't have enough info on this at this time."
+    }
+  ]
+}

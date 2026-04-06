@@ -1,0 +1,21 @@
+{
+  "values": [
+    "eclipseofthevoid:voidstone_ore",
+    "eclipseofthevoid:deepvoidstone_ore",
+    "eclipseofthevoid:infernal_ore",
+    "eclipseofthevoid:cosmic_ore",
+    "eclipseofthevoid:void_block",
+    "eclipseofthevoid:infernal_block",
+    "eclipseofthevoid:cosmic_block",
+    "eclipseofthevoid:void_bricks",
+    "eclipseofthevoid:void_brick_slab",
+    "eclipseofthevoid:void_brick_wall",
+    "eclipseofthevoid:infernal_bricks",
+    "eclipseofthevoid:infernal_brick_slab",
+    "eclipseofthevoid:infernal_brick_wall",
+    "eclipseofthevoid:cosmic_bricks",
+    "eclipseofthevoid:cosmic_brick_slab",
+    "eclipseofthevoid:cosmic_brick_wall",
+    "eclipseofthevoid:ethereal_honey_cauldron"
+  ]
+}

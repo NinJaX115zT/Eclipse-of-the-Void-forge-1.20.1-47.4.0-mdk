@@ -1,0 +1,18 @@
+{
+  "name": "Ethereal Nest",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:ethereal_nest",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:ethereal_nest",
+      "title": "Ethereal Nest",
+      "text": "The Ethereal Nest is a naturally occurring home for Ethereal Bees. Over time, bees working from the nest can build up Ethereal honey within it. When conditions are right, the nest may begin dripping its contents into a cauldron placed below it. This allows the player to collect useful resources without destroying the nest itself."
+    },
+    {
+      "type": "text",
+      "text": "Using shears on a productive nest may yield special honeycomb-based resources. Nests are slower than hives, but they are often the first step into understanding this system."
+    }
+  ]
+}

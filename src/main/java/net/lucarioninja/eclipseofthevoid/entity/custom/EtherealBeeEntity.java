@@ -4,7 +4,7 @@ import net.lucarioninja.eclipseofthevoid.block.ModBlocks;
 import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHiveBlock;
 import net.lucarioninja.eclipseofthevoid.datagen.ModBlockTagGenerator;
 import net.lucarioninja.eclipseofthevoid.entity.ModEntities;
-import net.lucarioninja.eclipseofthevoid.entity.custom.goal.*;
+import net.lucarioninja.eclipseofthevoid.entity.custom.goals.beegoals.*;
 import net.lucarioninja.eclipseofthevoid.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,6 +19,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -29,6 +31,7 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -74,10 +77,10 @@ public class EtherealBeeEntity extends Bee {
         this.goalSelector.addGoal(1, new TemptGoal(this, 0.6D, Ingredient.of(ModBlocks.NEBULITE_FLOWER.get().asItem()), false)); // Player temptation
         this.goalSelector.addGoal(2, new AvoidVanillaFlowerHolderGoal(this, 1.0D, 1.4D)); // Avoid vanilla flowers
         this.goalSelector.addGoal(3, new EtherealBeeGoToHiveGoal(this)); // Go to hive (has nectar)
-        this.goalSelector.addGoal(4, new EnterEtherealHiveGoal(this)); // ✅ Try hive BEFORE nest
+        this.goalSelector.addGoal(4, new EnterEtherealHiveGoal(this)); // Try hive BEFORE nest
         this.goalSelector.addGoal(5, new EnterEtherealNestGoal(this)); // Now try nest as backup
         this.goalSelector.addGoal(6, new WanderNearEtherealNestGoal(this)); // Linger near nest/hive if both fail
-        this.goalSelector.addGoal(7, new EtherealBeeGrowCropGoal(this)); // Grow crops if has nectar
+        this.goalSelector.addGoal(7, new EtherealBeeGrowCropGoal(this)); // Grow crops if it has nectar
         this.goalSelector.addGoal(8, new EtherealPollinationGoal(this)); // Pollinate when empty
         this.goalSelector.addGoal(9, new EtherealBeeWanderGoal(this)); // Random wandering
         this.goalSelector.addGoal(10, new FloatGoal(this)); // Float on water
@@ -93,7 +96,8 @@ public class EtherealBeeEntity extends Bee {
                 .add(Attributes.ARMOR_TOUGHNESS, 3.0D)
                 .add(Attributes.FLYING_SPEED, 1.2D)
                 .add(Attributes.MOVEMENT_SPEED, 0.9D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D);
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.FOLLOW_RANGE, 50.0D);
     }
 
     @Override
@@ -140,6 +144,32 @@ public class EtherealBeeEntity extends Bee {
     @Override
     public void tick() {
         super.tick();
+
+        if (!this.level().isClientSide && this.hasNectar() && this.tickCount % 200 == 0) {
+            if (this.getHealth() < this.getMaxHealth()) {
+                this.heal(1.0F);
+
+                if (this.level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER,
+                            this.getX(), this.getY() + 1.0D, this.getZ(),
+                            3, 0.2D, 0.2D, 0.2D, 0.01D);
+                }
+            }
+        }
+
+        if (!this.level().isClientSide && this.tickCount % 40 == 0) {
+            if (this.preferredHomePos != null && !this.isValidPreferredHome()) {
+                this.clearPreferredHome();
+            }
+
+            if (this.hasNectar() && this.preferredHomePos == null && this.hivePos != null) {
+                BlockState state = this.level().getBlockState(this.hivePos);
+                if (state.is(ModBlocks.ETHEREAL_HIVE.get())) {
+                    this.preferredHomePos = this.hivePos;
+                    this.preferredHomeIsHive = true;
+                }
+            }
+        }
 
         tickPollinationCooldown();
         tickHiveCooldown();
@@ -210,9 +240,16 @@ public class EtherealBeeEntity extends Bee {
                         !stateBelow.is(ModBlocks.ETHEREAL_HIVE.get())
         );
 
-        if (isInBadBlock && !this.getNavigation().isInProgress()) {
-            if (this.tickCount % 40 == 0) {
-                this.smartNudge();
+        if (isInBadBlock) {
+            // If stuck in a bad block, immediately try to escape with full teleport
+            if (this.isInWall()) {
+                // Critical - bee is suffocating
+                teleportToNearbyOpenAir();
+            } else if (!this.getNavigation().isInProgress()) {
+                // Less critical - but still prevent damage
+                if (this.tickCount % 40 == 0) {
+                    this.smartNudge();
+                }
             }
         }
     }
@@ -223,12 +260,12 @@ public class EtherealBeeEntity extends Bee {
 
         for (Direction direction : Direction.values()) {
             BlockPos sidePos = this.blockPosition().relative(direction);
-            BlockState sideState = this.level().getBlockState(sidePos);
-
-            if (sideState.isAir()) {
+            
+            // Check if there's safe 2x2 space in this direction
+            if (isSafe2x2Space(sidePos)) {
                 this.setPos(sidePos.getX() + 0.5D, sidePos.getY() + 0.5D, sidePos.getZ() + 0.5D);
                 this.getNavigation().stop();
-                this.level().playSound(null, sidePos, SoundEvents.CHORUS_FLOWER_GROW, this.getSoundSource(), 0.2f, 2.0f);
+                this.level().playSound(null, sidePos, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 0.2f, 2.0f);
 
                 if (this.level() instanceof ServerLevel serverLevel) {
                     serverLevel.sendParticles(ParticleTypes.END_ROD, sidePos.getX() + 0.5D, sidePos.getY() + 0.5D, sidePos.getZ() + 0.5D, 8, 0.1, 0.1, 0.1, 0.0);
@@ -247,8 +284,11 @@ public class EtherealBeeEntity extends Bee {
     }
 
     private void tickStuckCheck() {
-        if (!this.getNavigation().isInProgress() && this.getTarget() == null) {
-            if (this.position().distanceToSqr(lastPosition) < 0.01) {
+        // Check if bee isn't moving despite navigation being in progress (spinning/stuck scenario)
+        double velocityMagnitude = this.getDeltaMovement().lengthSqr();
+        
+        if (this.getTarget() == null) {
+            if (this.position().distanceToSqr(lastPosition) < 0.01 || velocityMagnitude < 0.001) {
                 stuckCounter++;
                 if (stuckCounter > 120) {
                     teleportToNearbyOpenAir();
@@ -334,9 +374,33 @@ public class EtherealBeeEntity extends Bee {
                         10, 0.2, 0.3, 0.2, 0.01
                 );
             }
-
             this.playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, 1.2F);
         }
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.is(ModBlocks.NEBULITE_FLOWER.get().asItem())) {
+            if (!this.level().isClientSide) {
+                this.heal(10.0F);
+
+                if (this.level() instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.HEART,
+                            this.getX(), this.getY() + 1.0D, this.getZ(),
+                            3, 0.2D, 0.2D, 0.2D, 0.01D);
+                }
+
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
+                }
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        return super.mobInteract(player, hand);
     }
 
     public boolean isEtherealFlower(BlockState state) {
@@ -370,6 +434,8 @@ public class EtherealBeeEntity extends Bee {
 
     public void setHivePos(BlockPos pos) {
         this.hivePos = pos;
+        this.preferredHomePos = pos;
+        this.preferredHomeIsHive = true;
     }
 
     @Nullable
@@ -397,6 +463,42 @@ public class EtherealBeeEntity extends Bee {
 
     public void clearPreferredHome() {
         this.preferredHomePos = null;
+    }
+
+    public boolean isValidPreferredHome() {
+        if (this.preferredHomePos == null) return false;
+
+        BlockState state = this.level().getBlockState(this.preferredHomePos);
+
+        if (this.preferredHomeIsHive) {
+            return state.is(ModBlocks.ETHEREAL_HIVE.get());
+        } else {
+            return state.is(ModBlocks.ETHEREAL_NEST.get());
+        }
+    }
+
+    @Nullable
+    public BlockPos getActiveHomePos() {
+        if (isValidPreferredHome()) {
+            return this.preferredHomePos;
+        }
+
+        if (this.hivePos != null) {
+            BlockState state = this.level().getBlockState(this.hivePos);
+            if (state.is(ModBlocks.ETHEREAL_HIVE.get())) {
+                this.preferredHomePos = this.hivePos;
+                this.preferredHomeIsHive = true;
+                return this.hivePos;
+            }
+        }
+
+        this.clearPreferredHome();
+        return null;
+    }
+
+    public void setPreferredNest(BlockPos pos) {
+        this.preferredHomePos = pos;
+        this.preferredHomeIsHive = false;
     }
 
     public void onExitHive() {
@@ -477,7 +579,7 @@ public class EtherealBeeEntity extends Bee {
 
         this.setPos(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
         this.getNavigation().stop();
-        this.level().playSound(null, pos, SoundEvents.CHORUS_FLOWER_GROW, this.getSoundSource(), 0.2f, 2.0f);
+        this.level().playSound(null, pos, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 0.2f, 2.0f);
 
         if (this.level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 10, 0.1, 0.1, 0.1, 0.0);
@@ -492,23 +594,137 @@ public class EtherealBeeEntity extends Bee {
         this.setLingerTime(40 + this.getRandom().nextInt(40)); // short reset wander time
     }
 
+    private boolean isSafe2x2Space(BlockPos pos) {
+        // Bee is 2x2, so check all 4 blocks of the footprint
+        // Also check 2 blocks up for head clearance
+        int[] xOffsets = {0, 1};
+        int[] zOffsets = {0, 1};
+        
+        for (int x : xOffsets) {
+            for (int z : zOffsets) {
+                BlockPos checkPos = pos.offset(x, 0, z);
+                // Check ground level and 2 blocks up
+                for (int y = 0; y <= 2; y++) {
+                    BlockState state = this.level().getBlockState(checkPos.above(y));
+                    if (!state.isAir()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public void teleportToNearbyOpenAir() {
         BlockPos origin = this.blockPosition();
+        BlockPos targetPos = null;
 
+        // First, try to get the target from preferred home or active navigation
+        if (this.getPreferredHomePos() != null) {
+            targetPos = this.getPreferredHomePos();
+        } else if (this.getTarget() != null) {
+            targetPos = this.getTarget().blockPosition();
+        } else if (this.getFlowerPos() != null) {
+            targetPos = this.getFlowerPos();
+        }
+
+        // If target is a hive, try to find a valid 2x2 entrance around it
+        if (targetPos != null && this.level().getBlockState(targetPos).getBlock() == ModBlocks.ETHEREAL_HIVE.get()) {
+            if (teleportToValidHiveEntrance(targetPos)) {
+                return;
+            }
+        }
+
+        // Prioritize search towards the target direction first
+        if (targetPos != null) {
+            Vec3 directionToTarget = Vec3.atBottomCenterOf(targetPos).subtract(Vec3.atBottomCenterOf(origin)).normalize();
+
+            // Search in concentric rings, biased towards target direction
+            for (int tries = 0; tries < 20; tries++) {
+                int offsetX = (int)(directionToTarget.x * (this.getRandom().nextInt(16) - 8));
+                int offsetY = (int)(directionToTarget.y * (this.getRandom().nextInt(8) - 4) + this.getRandom().nextInt(5) - 2);
+                int offsetZ = (int)(directionToTarget.z * (this.getRandom().nextInt(16) - 8));
+
+                BlockPos candidate = origin.offset(offsetX, offsetY, offsetZ);
+
+                if (isSafe2x2Space(candidate)) {
+                    teleportWithEffect(candidate);
+                    resetBeeBrainAfterStuck();
+                    return;
+                }
+            }
+        }
+
+        // Fallback: random search if no target found or target search failed
         for (int tries = 0; tries < 20; tries++) {
-            int offsetX = this.getRandom().nextInt(9) - 4;
-            int offsetY = this.getRandom().nextInt(5) - 2;
-            int offsetZ = this.getRandom().nextInt(9) - 4;
+            int offsetX = this.getRandom().nextInt(17) - 8;
+            int offsetY = this.getRandom().nextInt(7) - 3;
+            int offsetZ = this.getRandom().nextInt(17) - 8;
 
             BlockPos candidate = origin.offset(offsetX, offsetY, offsetZ);
 
-            if (this.level().getBlockState(candidate).isAir()
-                    && this.level().getBlockState(candidate.above()).isAir()) {
+            if (isSafe2x2Space(candidate)) {
                 teleportWithEffect(candidate);
                 resetBeeBrainAfterStuck();
                 return;
             }
         }
+    }
+
+    private boolean teleportToValidHiveEntrance(BlockPos hivePos) {
+        // Try to find a 2x2 air space adjacent to the hive on any face
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.DOWN || direction == Direction.UP) continue; // Skip vertical faces
+            
+            BlockPos frontPos = hivePos.relative(direction);
+            
+            // Use the safe 2x2 space check
+            if (isSafe2x2Space(frontPos)) {
+                // Teleport to the center of this 2x2 space
+                double teleportX = frontPos.getX() + 0.5D;
+                double teleportZ = frontPos.getZ() + 0.5D;
+                double teleportY = frontPos.getY() + 1.0D;
+                
+                this.setPos(teleportX, teleportY, teleportZ);
+                teleportWithEffect(BlockPos.containing(teleportX, teleportY, teleportZ));
+                resetBeeBrainAfterStuck();
+                return true;
+            }
+        }
+        
+        // Fallback: try to squeeze into corners around the hive
+        // Try corners on all horizontal faces
+        int[][] cornerOffsets = {
+            {0, 0}, {1, 0}, {0, 1}, {1, 1}  // 4 corners around the hive
+        };
+        
+        for (Direction direction : Direction.values()) {
+            if (direction == Direction.DOWN || direction == Direction.UP) continue;
+            
+            BlockPos basePos = hivePos.relative(direction);
+            
+            for (int[] offset : cornerOffsets) {
+                BlockPos cornerPos = basePos.offset(offset[0], 0, offset[1]);
+                
+                // Check if corner is passable (at least head height must be clear)
+                BlockState cornerState = this.level().getBlockState(cornerPos);
+                BlockState cornerAbove = this.level().getBlockState(cornerPos.above());
+                
+                if (cornerState.isAir() && cornerAbove.isAir()) {
+                    // Squeeze into corner
+                    double teleportX = cornerPos.getX() + 0.5D;
+                    double teleportZ = cornerPos.getZ() + 0.5D;
+                    double teleportY = cornerPos.getY() + 1.0D;
+                    
+                    this.setPos(teleportX, teleportY, teleportZ);
+                    teleportWithEffect(BlockPos.containing(teleportX, teleportY, teleportZ));
+                    resetBeeBrainAfterStuck();
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 
     @Override
@@ -517,10 +733,10 @@ public class EtherealBeeEntity extends Bee {
 
         boolean success = super.doHurtTarget(target);
         if (success && target instanceof LivingEntity living) {
-            living.hurt(level().damageSources().sting(this), 4.0F); // You can tweak base damage
+            living.hurt(level().damageSources().sting(this), 6.0F); // You can tweak base damage
             living.setSecondsOnFire(0); // No fire, but maybe wither?
 
-            living.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 0)); // Small wither tick
+            living.addEffect(new MobEffectInstance(MobEffects.WITHER, 200, 2));
 
             // Visual sting feedback
             ((ServerLevel) level()).sendParticles(ParticleTypes.CRIT,
@@ -532,7 +748,7 @@ public class EtherealBeeEntity extends Bee {
                 remainingStings = 1 + random.nextInt(5); // 1 to 5 extra stings
             }
 
-            stingCooldown = 20; // 1-second cooldown between stings
+            stingCooldown = 120; // 6 second cooldown between stings
 
             // Final sting wrap-up
             if (remainingStings <= 0) {

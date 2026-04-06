@@ -1,0 +1,12 @@
+{
+  "name": "The Nature of the Void",
+  "category": "eclipseofthevoid:void_energy",
+  "icon": "minecraft:black_wool",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "text",
+      "text": "We don't have enough info on this at this time."
+    }
+  ]
+}

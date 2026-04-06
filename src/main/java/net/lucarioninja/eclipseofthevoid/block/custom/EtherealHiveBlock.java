@@ -4,6 +4,7 @@ import net.lucarioninja.eclipseofthevoid.block.entity.EtherealHiveBlockEntity;
 import net.lucarioninja.eclipseofthevoid.block.entity.ModBlockEntities;
 import net.lucarioninja.eclipseofthevoid.entity.custom.EtherealBeeEntity;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -95,26 +98,27 @@ public class EtherealHiveBlock extends HorizontalDirectionalBlock implements Ent
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("An Ethereal Hive that houses Ethereal Bees, these bee's make cells for honeycombs.")
-                .withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.literal("Right-click to grab the cells inside, or use a hopper to extract the items.")
-                .withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        if (Screen.hasShiftDown()) {
+            pTooltip.add(Component.translatable("tooltip.eclipseofthevoid.ethereal_hive_block.tooltip.shift")
+                    .withStyle(ChatFormatting.GRAY));
+        } else {
+            pTooltip.add(Component.translatable("tooltip.eclipseofthevoid.ethereal_hive_block.tooltip")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, net.minecraft.world.level.block.entity.BlockEntity be, ItemStack tool) {
         if (!level.isClientSide) {
-            if (!tool.isEmpty() && net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH, tool) > 0) {
-                // Drop the block itself and retain all data — this will automatically save the BlockEntity NBT with bees & progress
+            if (!tool.isEmpty() && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, tool) > 0) {
                 popResource(level, pos, new ItemStack(this));
             } else {
-                // Anger bees inside the hive first (assuming you have this method in your EtherealHiveBlockEntity)
                 if (be instanceof EtherealHiveBlockEntity hive) {
                     hive.angerBees(player);
                     hive.emptyAllContents(player);
                 }
-                // Then call nearby bees to join the fight
                 angerNearbyBees(level, pos, player);
             }
         }

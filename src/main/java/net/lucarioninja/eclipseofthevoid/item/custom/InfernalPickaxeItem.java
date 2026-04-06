@@ -26,7 +26,7 @@ public class InfernalPickaxeItem extends PickaxeItem {
     public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level level, @NotNull BlockState state,
                              @NotNull BlockPos pos, @NotNull LivingEntity miner) {
 
-        System.out.println("[DEBUG] Void Pickaxe used on: " + state.getBlock().getDescriptionId());
+        System.out.println("[DEBUG] Infernal Pickaxe used on: " + state.getBlock().getDescriptionId());
         System.out.println("[DEBUG] Block hardness: " + state.getDestroySpeed(level, pos));
         System.out.println("[DEBUG] Is block tagged NEEDS_COSMIC_TOOL: " + state.is(net.lucarioninja.eclipseofthevoid.util.ModTags.Blocks.NEEDS_COSMIC_TOOL));
         System.out.println("[DEBUG] Is block tagged NEEDS_INFERNAL_TOOL: " + state.is(net.lucarioninja.eclipseofthevoid.util.ModTags.Blocks.NEEDS_INFERNAL_TOOL));

@@ -59,20 +59,20 @@ public class ModBlocks {
                     .strength(10, 1800).sound(SoundType.AMETHYST)));
     public static final RegistryObject<Block> ETHEREAL_HONEY_BLOCK = registerBlock("ethereal_honey_block",
             () -> new EtherealHoneyBlock(BlockBehaviour.Properties.copy(Blocks.HONEY_BLOCK).mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(0.5F).sound(SoundType.HONEY_BLOCK).noOcclusion().speedFactor(0.4F)      // sticky/slowing movement like honey
-                    .jumpFactor(1.2F)));
+                    .strength(0.8F).sound(SoundType.HONEY_BLOCK).noOcclusion().speedFactor(0.6F)      // sticky/slowing movement like honey
+                    .jumpFactor(1.5F)));
     public static final RegistryObject<Block> ETHEREAL_HONEYCOMB_BLOCK = registerBlock("ethereal_honeycomb_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.HONEYCOMB_BLOCK).mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(0.7F)));
+                    .strength(1.6F)));
     public static final RegistryObject<Block> ETHEREAL_NEST = registerBlock("ethereal_nest",
             () -> new EtherealNestBlock(BlockBehaviour.Properties.copy(Blocks.BEE_NEST).mapColor(MapColor.COLOR_PINK)
-                    .strength(1.3F).requiresCorrectToolForDrops()));
+                    .strength(2.3F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_HIVE = registerBlock("ethereal_hive",
             () -> new EtherealHiveBlock(BlockBehaviour.Properties.copy(Blocks.BEEHIVE).mapColor(MapColor.COLOR_PINK)
-                    .strength(1.6F).requiresCorrectToolForDrops()));
+                    .strength(2.6F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_HONEY_CAULDRON = registerBlock("ethereal_honey_cauldron",
             () -> new EtherealHoneyCauldronBlock(BlockBehaviour.Properties.copy(Blocks.CAULDRON).mapColor(MapColor.STONE)
-                    .strength(2.0F).requiresCorrectToolForDrops()));
+                    .strength(3.0F).requiresCorrectToolForDrops()));
 
     // Wood stuff and Leaves
     public static final RegistryObject<Block> ETHEREAL_LOG = registerBlock("ethereal_log",
@@ -87,10 +87,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> STRIPPED_ETHEREAL_WOOD = registerBlock("stripped_ethereal_wood",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.COLOR_PINK)
                     .strength(2.3F).requiresCorrectToolForDrops()));
-
     public static final RegistryObject<Block> ETHEREAL_PLANKS = registerBlock("ethereal_planks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PINK)
-                    .strength(2.3F).requiresCorrectToolForDrops()){
+                    .strength(2.3F, 3.3F).requiresCorrectToolForDrops()){
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return super.isFlammable(state, level, pos, direction);
@@ -127,26 +126,26 @@ public class ModBlocks {
             () -> new StairBlock(() -> ModBlocks.ETHEREAL_PLANKS.get().defaultBlockState(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PINK).strength(2.3F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_CHEST = BLOCKS.register("ethereal_chest",
-            () -> new EtherealChestBlock(BlockBehaviour.Properties.copy(Blocks.CHEST).strength(2.3F).requiresCorrectToolForDrops()));
+            () -> new EtherealChestBlock(BlockBehaviour.Properties.copy(Blocks.CHEST).strength(3.3F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_SLAB = registerBlock("ethereal_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE).strength(2.3F).requiresCorrectToolForDrops()));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE).strength(2.3F, 3.3F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_BUTTON = registerBlock("ethereal_button",
             () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_PURPLE)
                     .strength(2.3F).requiresCorrectToolForDrops(), BlockSetType.OAK, 30, true));
     public static final RegistryObject<Block> ETHEREAL_PRESSURE_PLATE = registerBlock("ethereal_pressure_plate",
             () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.COLOR_PURPLE)
-                    .strength(2.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
+                    .strength(1.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
     public static final RegistryObject<Block> ETHEREAL_FENCE = registerBlock("ethereal_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE).strength(2.3F).requiresCorrectToolForDrops()));
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE).strength(2.3F, 3.3F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ETHEREAL_FENCE_GATE = registerBlock("ethereal_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_PURPLE).strength(2.3F).requiresCorrectToolForDrops(),
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_PURPLE).strength(2.3F, 3.3F).requiresCorrectToolForDrops(),
                     SoundEvents.FENCE_GATE_OPEN, SoundEvents.FENCE_GATE_CLOSE));
     public static final RegistryObject<Block> ETHEREAL_DOOR = registerBlock("ethereal_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_PURPLE)
-                    .strength(2.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
+                    .strength(4.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
     public static final RegistryObject<Block> ETHEREAL_TRAPDOOR = registerBlock("ethereal_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_PURPLE)
-                    .strength(2.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).mapColor(MapColor.COLOR_PURPLE)
+                    .strength(4.3F).requiresCorrectToolForDrops(), BlockSetType.OAK));
 
     // Signs
     public static final RegistryObject<Block> ETHEREAL_SIGN = BLOCKS.register("ethereal_sign",
@@ -190,7 +189,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> COSMIC_BRICK_SLAB = registerBlock("cosmic_brick_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.BRICK_SLAB).mapColor(MapColor.COLOR_LIGHT_BLUE)
                     .strength(10, 1800).requiresCorrectToolForDrops()));
-
 
     // Villager Workstations
     public static final RegistryObject<Block> VOID_MULCHER = registerBlock("void_mulcher",

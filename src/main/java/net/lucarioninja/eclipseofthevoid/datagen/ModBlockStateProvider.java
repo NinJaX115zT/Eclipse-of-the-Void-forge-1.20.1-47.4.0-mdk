@@ -6,11 +6,9 @@ import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHiveBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.EtherealHoneyCauldronBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.InfernalpodCropBlock;
 import net.lucarioninja.eclipseofthevoid.block.custom.VoidblossomCropBlock;
-import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -131,15 +129,71 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .texture("liquid", modLoc("block/ethereal_honey_fill")))
                 .addModel();
 
-        simpleBlock(ModBlocks.VOID_MULCHER.get(),
-                models().getBuilder("void_mulcher")
-                        .parent(new ModelFile.UncheckedModelFile(mcLoc("block/cube")))
-                        .texture("north", modLoc("block/void_mulcher_ready"))
-                        .texture("south", modLoc("block/void_mulcher_side"))
-                        .texture("east",  modLoc("block/void_mulcher_side"))
-                        .texture("west",  modLoc("block/void_mulcher_side"))
-                        .texture("up",    modLoc("block/void_mulcher_top"))
-                        .texture("down",  modLoc("block/void_mulcher_bottom")));
+        ModelFile voidMulcherBase = models().withExistingParent("void_mulcher", mcLoc("block/composter"))
+                .texture("particle", modLoc("block/void_mulcher_side"))
+                .texture("bottom", modLoc("block/void_mulcher_bottom"))
+                .texture("side", modLoc("block/void_mulcher_side"))
+                .texture("top", modLoc("block/void_mulcher_top"))
+                .texture("inside", modLoc("block/void_mulcher_bottom"));
+
+        ModelFile voidMulcherFill1 = models().withExistingParent("void_mulcher_fill_1", mcLoc("block/composter_contents1"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill2 = models().withExistingParent("void_mulcher_fill_2", mcLoc("block/composter_contents2"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill3 = models().withExistingParent("void_mulcher_fill_3", mcLoc("block/composter_contents3"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill4 = models().withExistingParent("void_mulcher_fill_4", mcLoc("block/composter_contents4"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill5 = models().withExistingParent("void_mulcher_fill_5", mcLoc("block/composter_contents5"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill6 = models().withExistingParent("void_mulcher_fill_6", mcLoc("block/composter_contents6"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherFill7 = models().withExistingParent("void_mulcher_fill_7", mcLoc("block/composter_contents7"))
+                .texture("particle", modLoc("block/void_mulcher_mulch"))
+                .texture("inside", modLoc("block/void_mulcher_mulch"));
+
+        ModelFile voidMulcherReady = models().withExistingParent("void_mulcher_ready_contents", mcLoc("block/composter_contents_ready"))
+                .texture("particle", modLoc("block/void_mulcher_ready"))
+                .texture("inside", modLoc("block/void_mulcher_ready"));
+
+        getMultipartBuilder(ModBlocks.VOID_MULCHER.get())
+                .part().modelFile(voidMulcherBase).addModel().end()
+
+                .part().modelFile(voidMulcherFill1).addModel()
+                .condition(ComposterBlock.LEVEL, 1).end()
+
+                .part().modelFile(voidMulcherFill2).addModel()
+                .condition(ComposterBlock.LEVEL, 2).end()
+
+                .part().modelFile(voidMulcherFill3).addModel()
+                .condition(ComposterBlock.LEVEL, 3).end()
+
+                .part().modelFile(voidMulcherFill4).addModel()
+                .condition(ComposterBlock.LEVEL, 4).end()
+
+                .part().modelFile(voidMulcherFill5).addModel()
+                .condition(ComposterBlock.LEVEL, 5).end()
+
+                .part().modelFile(voidMulcherFill6).addModel()
+                .condition(ComposterBlock.LEVEL, 6).end()
+
+                .part().modelFile(voidMulcherFill7).addModel()
+                .condition(ComposterBlock.LEVEL, 7).end()
+
+                .part().modelFile(voidMulcherReady).addModel()
+                .condition(ComposterBlock.LEVEL, 8).end();
 
         makeVoidblossomCrop((CropBlock) ModBlocks.VOIDBLOSSOM_CROP.get(), "voidblossom_stage", "voidblossom_stage");
         makeInfernalpodCrop(((CropBlock) ModBlocks.INFERNALPOD_CROP.get()), "infernalpod_stage", "infernalpod_stage");
@@ -180,7 +234,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         saplingBlock(ModBlocks.ETHEREAL_SAPLING);
 
         simpleBlock(ModBlocks.ETHEREAL_CHEST.get(),
-                models().getExistingFile(mcLoc("block/chest")));
+                models().withExistingParent("ethereal_chest", mcLoc("block/chest"))
+                        .texture("particle", modLoc("block/ethereal_planks")));
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "eclipseofthevoid:void_essence"
+    },
+    "I": {
+      "item": "eclipseofthevoid:void_ingot"
+    }
+  },
+  "pattern": [
+    "EIE",
+    "IEI",
+    "EIE"
+  ],
+  "result": {
+    "item": "eclipseofthevoid:void_core"
+  },
+  "show_notification": true
+}

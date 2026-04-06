@@ -1,0 +1,18 @@
+{
+  "name": "Ethereal Trees",
+  "category": "eclipseofthevoid:beekeeping",
+  "icon": "eclipseofthevoid:ethereal_sapling",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:image",
+      "images": ["eclipseofthevoid:textures/patchouli/ethereal_tree.png"],
+      "title": "Ethereal Trees",
+      "text": "Ethereal Trees can be found growing within the End, bringing a strange form of life to an otherwise barren dimension. Their presence is unnatural, yet they thrive as if they belong."
+    },
+    {
+      "type": "text",
+      "text": "These trees serve as a source of Ethereal Wood, which can be harvested using an axe like ordinary timber. Their materials can be crafted into planks, building blocks, and other useful components. Ethereal Bees are often found near these trees, building nests among their branches. The trees and bees share a close connection, forming a small but thriving ecosystem within the End."
+    }
+  ]
+}

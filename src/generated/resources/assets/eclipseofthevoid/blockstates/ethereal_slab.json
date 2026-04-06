@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "eclipseofthevoid:block/ethereal_slab"
+    },
+    "type=double": {
+      "model": "eclipseofthevoid:block/ethereal_planks"
+    },
+    "type=top": {
+      "model": "eclipseofthevoid:block/ethereal_slab_top"
+    }
+  }
+}

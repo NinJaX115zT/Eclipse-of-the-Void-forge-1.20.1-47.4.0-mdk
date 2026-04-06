@@ -193,31 +193,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Core Recipes
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.VOID_CORE.get())
-                .pattern(" I ")
+                .pattern("EIE")
                 .pattern("IEI")
-                .pattern(" I ")
+                .pattern("EIE")
                 .define('I', ModItems.VOID_INGOT.get())
                 .define('E', ModItems.VOID_ESSENCE.get())
                 .unlockedBy(getHasName(ModItems.VOID_INGOT.get()), has(ModItems.VOID_INGOT.get()))
                 .save(pWriter, EclipseOfTheVoid.MOD_ID + ":void_core_from_ingot_and_essence");
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.INFERNAL_CORE.get())
-                .pattern("IEI")
-                .pattern("ECE")
-                .pattern("IEI")
-                .define('I', ModItems.INFERNAL_INGOT.get())
-                .define('E', ModItems.INFERNAL_ESSENCE.get())
-                .define('C', ModItems.VOID_CORE.get())
-                .unlockedBy(getHasName(ModItems.INFERNAL_INGOT.get()), has(ModItems.INFERNAL_INGOT.get()))
-                .save(pWriter, EclipseOfTheVoid.MOD_ID + ":infernal_core_from_ingot_essence_and_void_core");
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.COSMIC_CORE.get())
-                .pattern("IEI")
-                .pattern("ECE")
-                .pattern("IEI")
-                .define('I', ModItems.COSMIC_INGOT.get())
-                .define('E', ModItems.COSMIC_ESSENCE.get())
-                .define('C', ModItems.INFERNAL_CORE.get())
-                .unlockedBy(getHasName(ModItems.COSMIC_INGOT.get()), has(ModItems.COSMIC_INGOT.get()))
-                .save(pWriter, EclipseOfTheVoid.MOD_ID + ":cosmic_core_from_ingot_essence_and_infernal_core");
 
         // Food Recipes
         // Berry Recipe
@@ -441,6 +423,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('C', ModItems.COSMIC_CORE.get())
                 .unlockedBy(getHasName(ModBlocks.ETHEREAL_PLANKS.get()), has(ModBlocks.ETHEREAL_PLANKS.get()))
                 .save(pWriter, EclipseOfTheVoid.MOD_ID + ":ethereal_hive_from_planks_and_honeycomb_and_core");
+
+        // Void Mulcher Recipe
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.VOID_MULCHER.get(), 1)
+                .pattern("S S")
+                .pattern("S S")
+                .pattern("SSS")
+                .define('S', ModBlocks.VOID_BRICK_SLAB.get())
+                .unlockedBy(getHasName(ModBlocks.VOID_BRICK_SLAB.get()), has(ModBlocks.VOID_BRICK_SLAB.get()))
+                .save(pWriter, EclipseOfTheVoid.MOD_ID + ":void_mulcher_from_void_brick_slabs");
     }
 
 

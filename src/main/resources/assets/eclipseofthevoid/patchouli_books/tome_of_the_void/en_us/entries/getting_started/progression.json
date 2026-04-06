@@ -1,0 +1,17 @@
+{
+  "name": "Progression",
+  "category": "eclipseofthevoid:getting_started",
+  "icon": "minecraft:compass",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Beginning Your Journey",
+      "text": "You will embark on a journey into the Void. Your adventure begins with exploration. Travel to desert pyramids and search the suspicious sand within. Hidden inside are strange relics known as Eclipse Tokens. These ancient fragments are uncovered through brushing and will become the backbone of early progression in this world. Use these tokens to trade with special villagers to unlock rare seeds, crops, and materials that cannot be obtained through normal means."
+    },
+    {
+      "type": "text",
+      "text": "As your journey continues, you will forge powerful equipment, harvest essence from fallen corrupted creatures, and face corrupted bosses that guard powerful relics. All of this leads to one goal: confronting the very essence of the Void itself — the being responsible for the corruption spreading throughout the world and its dimensions. You have been chosen by the Void gods for this task. Plan your journey carefully, future Void Slayer. A long path lies ahead."
+    }
+  ]
+}

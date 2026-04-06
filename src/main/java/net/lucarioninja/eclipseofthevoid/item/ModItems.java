@@ -32,11 +32,11 @@ public class ModItems  {
     public static final RegistryObject<Item> COSMIC_SLOB = ITEMS.register("cosmic_slob",
             () -> new CosmicSlobItem(new Item.Properties()));
     public static final RegistryObject<Item> VOID_ESSENCE = ITEMS.register("void_essence",
-            () -> new FuelItem(new Item.Properties().stacksTo(64), 400));
+            () -> new FuelItem(new Item.Properties().stacksTo(64), 1600));
     public static final RegistryObject<Item> INFERNAL_ESSENCE = ITEMS.register("infernal_essence",
-            () -> new FuelItem(new Item.Properties().stacksTo(64), 400));
+            () -> new FuelItem(new Item.Properties().stacksTo(64), 3200));
     public static final RegistryObject<Item> COSMIC_ESSENCE = ITEMS.register("cosmic_essence",
-            () -> new FuelItem(new Item.Properties().stacksTo(64), 400));
+            () -> new FuelItem(new Item.Properties().stacksTo(64), 6400));
     public static final RegistryObject<Item> BURIED_ECLIPSE_TOKEN = ITEMS.register("buried_eclipse_token",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ETHEREAL_HONEYCOMB_CELL = ITEMS.register("ethereal_honeycomb_cell",
@@ -143,6 +143,8 @@ public class ModItems  {
     // Spawn Eggs
     public static final RegistryObject<SpawnEggItem> ETHEREAL_BEE_SPAWN_EGG = ITEMS.register("ethereal_bee_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.ETHEREAL_BEE, 0xCA658E, 0x3A2339, new Item.Properties()));
+    /*public static final RegistryObject<SpawnEggItem> INFERNAL_CONSTRUCT_SPAWN_EGG = ITEMS.register("infernal_construct_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.INFERNAL_CONSTRUCT, 0x343434, 0xC8872D, new Item.Properties()));*/
 
     // Signs
     public static final RegistryObject<Item> ETHEREAL_SIGN = ITEMS.register("ethereal_sign",

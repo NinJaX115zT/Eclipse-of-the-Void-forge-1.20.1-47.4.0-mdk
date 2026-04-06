@@ -3,8 +3,7 @@ package net.lucarioninja.eclipseofthevoid.client;
 import net.lucarioninja.eclipseofthevoid.EclipseOfTheVoid;
 import net.lucarioninja.eclipseofthevoid.client.renderer.VoidCapeRenderer;
 import net.lucarioninja.eclipseofthevoid.particles.ModParticles;
-import net.lucarioninja.eclipseofthevoid.particles.custom.EtherealHoneyParticleProvider;
-import net.minecraft.client.model.ElytraModel;
+import net.lucarioninja.eclipseofthevoid.particles.custom.EtherealHoneyParticles;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,7 +17,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class EclipseOfTheVoidClient {
     @SubscribeEvent
     public static void onParticleFactoryRegister(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticles.ETHEREAL_HONEY_PARTICLE.get(), EtherealHoneyParticleProvider::new);
+        event.registerSpriteSet(ModParticles.ETHEREAL_HONEY_HANG.get(), EtherealHoneyParticles.HangProvider::new);
+        event.registerSpriteSet(ModParticles.ETHEREAL_HONEY_FALL.get(), EtherealHoneyParticles.FallProvider::new);
+        event.registerSpriteSet(ModParticles.ETHEREAL_HONEY_LAND.get(), EtherealHoneyParticles.LandProvider::new);
     }
     @SubscribeEvent
     public static void onLayerAdded(EntityRenderersEvent.AddLayers event) {

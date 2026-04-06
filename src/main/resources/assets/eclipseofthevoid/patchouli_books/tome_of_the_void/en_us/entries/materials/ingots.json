@@ -1,0 +1,35 @@
+{
+  "name": "Ingots",
+  "category": "eclipseofthevoid:materials",
+  "icon": "eclipseofthevoid:void_ingot",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:void_ingot",
+      "title": "Void Ingot",
+      "text": "Wanna know about ingots now? Well this is a Void Ingot, these make various items, blocks, etc and are the backbone of all that is Void related. Think of this as a very refined version of the slob, which has no bad properties anymore. I think you'll find yourself crafting these often throughout your journey."
+    },
+    {
+      "type": "patchouli:text"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:infernal_ingot",
+      "title": "Infernal Ingot",
+      "text": "This is an Infernal ingot, these make a bunch of items, blocks, etc and are the backbone of all that is Infernal related. This also has no bad properties as it has been refined, these are gonna be used a lot for the 'final' tier."
+    },
+    {
+      "type": "patchouli:text"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "eclipseofthevoid:cosmic_ingot",
+      "title": "Cosmic Ingot",
+      "text": "This 'final' tier is gonna be the backbone for all things cosmic. You're probably wondering 'Why is the word final in quotations?' and you'd be right to question. You'll have to discover it to find out. Even we void gods have no info on what is after this."
+    },
+    {
+      "type": "patchouli:text"
+    }
+  ]
+}

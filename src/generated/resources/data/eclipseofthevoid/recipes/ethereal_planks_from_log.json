@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "eclipseofthevoid:ethereal_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "eclipseofthevoid:ethereal_planks"
+  }
+}

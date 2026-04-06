@@ -17,28 +17,21 @@ public class ModArmorItem extends ArmorItem {
     private static final Map<ArmorMaterial, List<MobEffectInstance>> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, List<MobEffectInstance>>())
                     .put(ModArmorMaterials.VOID, List.of(
-                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.DIG_SPEED, 200, 0, true, false, true),
-                            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0, true, false, true)
+                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0, true, false, true),
+                            new MobEffectInstance(MobEffects.DIG_SPEED, 200, 0, true, false, true)
                     ))
                     .put(ModArmorMaterials.INFERNAL, List.of(
-                            new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1500, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2, true, false, true),
-                            new MobEffectInstance(MobEffects.DIG_SPEED, 200, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.HEALTH_BOOST, 15000, 1, true, false, true)
+                            new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400, 0, true, false, true),
+                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400, 1, true, false, true),
+                            new MobEffectInstance(MobEffects.DIG_SPEED, 400, 1, true, false, true),
+                            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0, true, false, true)
                     ))
                     .put(ModArmorMaterials.COSMIC, List.of(
-                            new MobEffectInstance(MobEffects.NIGHT_VISION, 50000, 0, true, false, true),
-                            new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 2, true, false, true),
-                            new MobEffectInstance(MobEffects.LUCK, 200, 2, true, false, true),
-                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2500, 4, true, false, true),
-                            new MobEffectInstance(MobEffects.DIG_SPEED, 200, 2, true, false, true),
-                            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 2, true, false, true),
-                            new MobEffectInstance(MobEffects.JUMP, 200, 4, true, false, true),
-                            new MobEffectInstance(MobEffects.ABSORPTION, 200, 1, true, false, true),
-                            new MobEffectInstance(MobEffects.HEALTH_BOOST, 25000, 2, true, false, true)
+                            new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 0, true, false, true),
+                            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 2, true, false, true),
+                            new MobEffectInstance(MobEffects.DIG_SPEED, 600, 2, true, false, true),
+                            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 1, true, false, true),
+                            new MobEffectInstance(MobEffects.JUMP, 600, 1, true, false, true)
                     ))
                     .build();
 
@@ -81,9 +74,15 @@ public class ModArmorItem extends ArmorItem {
 
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial,
                                             MobEffectInstance mapStatusEffect) {
-        boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
+        if (!hasCorrectArmorOn(mapArmorMaterial, player)) {
+            return;
+        }
 
-        if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+        MobEffectInstance currentEffect = player.getEffect(mapStatusEffect.getEffect());
+
+        if (currentEffect == null
+                || currentEffect.getAmplifier() < mapStatusEffect.getAmplifier()
+                || currentEffect.getDuration() <= 100) {
             player.addEffect(new MobEffectInstance(mapStatusEffect));
         }
     }
@@ -91,10 +90,10 @@ public class ModArmorItem extends ArmorItem {
     private boolean hasFullSuitOfArmorOn(Player player) {
         ItemStack boots = player.getInventory().getArmor(0);
         ItemStack leggings = player.getInventory().getArmor(1);
-        ItemStack breastplate = player.getInventory().getArmor(2);
+        ItemStack chestplate = player.getInventory().getArmor(2);
         ItemStack helmet = player.getInventory().getArmor(3);
 
-        return !helmet.isEmpty() && !breastplate.isEmpty()
+        return !helmet.isEmpty() && !chestplate.isEmpty()
                 && !leggings.isEmpty() && !boots.isEmpty();
     }
 
@@ -107,10 +106,10 @@ public class ModArmorItem extends ArmorItem {
 
         ArmorItem boots = ((ArmorItem)player.getInventory().getArmor(0).getItem());
         ArmorItem leggings = ((ArmorItem)player.getInventory().getArmor(1).getItem());
-        ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmor(2).getItem());
+        ArmorItem chestplate = ((ArmorItem)player.getInventory().getArmor(2).getItem());
         ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
 
-        return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
+        return helmet.getMaterial() == material && chestplate.getMaterial() == material &&
                 leggings.getMaterial() == material && boots.getMaterial() == material;
     }
 }
